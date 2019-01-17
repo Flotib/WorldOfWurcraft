@@ -23,7 +23,7 @@ public class TextComponent extends UIComponent {
 	}
 	
 	public TextComponent(String text, int x, int y) {
-		super();
+		super(x, y);
 		
 		this.text = text;
 		this.font = DEFAULT_FONT;
@@ -53,7 +53,7 @@ public class TextComponent extends UIComponent {
 	public void computeSize() {
 		double textWidth = Toolkit.getToolkit().getFontLoader().getFontMetrics(DEFAULT_FONT).computeStringWidth(text);
 		
-		setSize(textWidth, 12);
+		setSize(textWidth, DEFAULT_FONT.getSize());
 	}
 	
 	@Override

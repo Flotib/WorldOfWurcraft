@@ -2,9 +2,11 @@ package engine.ui.components;
 
 import engine.collision.Collidable;
 import engine.render.Renderable;
+import engine.ui.layout.UILayout;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -47,6 +49,7 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	protected boolean invalid = true, selected;
 	protected UIComponent parent;
 	protected byte renderMode, visibility;
+	private OnClickListener onClickListener;
 	
 	/* Constructor */
 	public UIComponent() {
@@ -101,8 +104,8 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		
 		graphics.save();
 		
-		double componentX = x * scale;
-		double componentY = y * scale;
+		double componentX = getAbsoluteX() * scale;
+		double componentY = getAbsoluteY() * scale;
 		double componentWidth = width * scale;
 		double componentHeight = height * scale;
 		
@@ -150,7 +153,26 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 			return false;
 		}
 		
-		return (x <= other.getX() && other.getX() <= x + width) && (y <= other.getY() && other.getY() <= y + height);
+		return (getAbsoluteX() <= other.getX() && other.getX() <= getAbsoluteX() + width) && (getAbsoluteY() <= other.getY() && other.getY() <= getAbsoluteY() + height);
+	}
+	
+	/**
+	 * Get the highest {@link UIComponent} on the stack.
+	 * 
+	 * @return Highest {@link UIComponent} on screen.
+	 */
+	public UIComponent getHeighestComponent() {
+		if (selected) {
+			return this;
+		}
+		
+		return null;
+	}
+	
+	public void dispatchMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
+		if (onClickListener != null) {
+			onClickListener.onClick(this, button, mouseScreenPosition, pressed);
+		}
 	}
 	
 	/**
@@ -158,6 +180,20 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	 */
 	public double getX() {
 		return x;
+	}
+	
+	public double getAbsoluteX() {
+		double absolute = x;
+		
+		if (getParent() != null) {
+			if (getParent() instanceof UILayout) {
+				absolute += ((UILayout) getParent()).getAbsoluteXOf(this);
+			} else {
+				absolute += getParent().getAbsoluteX();
+			}
+		}
+		
+		return absolute;
 	}
 	
 	/**
@@ -185,6 +221,20 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	 */
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public double getAbsoluteY() {
+		double absolute = y;
+		
+		if (getParent() != null) {
+			if (getParent() instanceof UILayout) {
+				absolute += ((UILayout) getParent()).getAbsoluteYOf(this);
+			} else {
+				absolute += getParent().getAbsoluteY();
+			}
+		}
+		
+		return absolute;
 	}
 	
 	/**
@@ -311,6 +361,16 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	}
 	
 	/**
+	 * Set a new {@link OnClickListener} for this {@link UIComponent}.
+	 * 
+	 * @param onClickListener
+	 *            Target {@link OnClickListener} instance.
+	 */
+	public void setOnClickListener(OnClickListener onClickListener) {
+		this.onClickListener = onClickListener;
+	}
+	
+	/**
 	 * Attach a parent to this {@link UIComponent}.
 	 * 
 	 * @param parent
@@ -344,6 +404,12 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		}
 		
 		this.parent = null;
+	}
+	
+	public interface OnClickListener {
+		
+		void onClick(UIComponent component, MouseButton button, Point2D mouseScreenPosition, boolean pressed);
+		
 	}
 	
 }

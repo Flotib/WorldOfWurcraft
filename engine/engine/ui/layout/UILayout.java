@@ -3,8 +3,10 @@ package engine.ui.layout;
 import java.util.ArrayList;
 import java.util.List;
 
+import caceresenzo.libs.logger.Logger;
 import engine.ui.components.UIComponent;
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class UILayout extends UIComponent {
 	
@@ -24,7 +26,7 @@ public abstract class UILayout extends UIComponent {
 	@Override
 	public void onMouseMouved(Point2D mouseScreenPosition) {
 		super.onMouseMouved(mouseScreenPosition);
-
+		
 		if (getVisibility() == VISIBILITY_GONE) {
 			return;
 		}
@@ -35,6 +37,54 @@ public abstract class UILayout extends UIComponent {
 			}
 		}
 	}
+	
+	@Override
+	public UIComponent getHeighestComponent() {
+		if (selected) {
+			if (children != null) {
+				for (UIComponent component : getChildren()) {
+					UIComponent highestComponent = component.getHeighestComponent();
+					
+					if (highestComponent != null) {
+						return highestComponent;
+					}
+				}
+			}
+			
+			return this;
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public void renderDebug(GraphicsContext graphics) {
+		super.renderDebug(graphics);
+		
+		if (children != null) {
+			for (UIComponent component : getChildren()) {
+				component.renderDebug(graphics);
+			}
+		}
+	}
+	
+	/**
+	 * Compute an absolute x screen position for a given {@link UIComponent}.
+	 * 
+	 * @param targetComponent
+	 *            Target {@link UIComponent}.
+	 * @return Absolute x screen position.
+	 */
+	public abstract double getAbsoluteXOf(UIComponent targetComponent);
+	
+	/**
+	 * Compute an absolute y screen position for a given {@link UIComponent}.
+	 * 
+	 * @param targetComponent
+	 *            Target {@link UIComponent}.
+	 * @return Absolute y screen position.
+	 */
+	public abstract double getAbsoluteYOf(UIComponent targetComponent);
 	
 	/**
 	 * Optimization.<br>
@@ -56,6 +106,7 @@ public abstract class UILayout extends UIComponent {
 	
 	public boolean addComponent(UIComponent element) {
 		element.attachParent(this);
+		Logger.info("Attached parent");
 		
 		return getChildren().add(element);
 	}

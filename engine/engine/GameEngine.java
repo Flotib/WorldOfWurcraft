@@ -135,11 +135,11 @@ public class GameEngine extends Application {
 	}
 	
 	public void onMousePressedEvent(MouseEvent mouseEvent) {
-		;
+		uiManager.dispatchMouseClick(mouseEvent, true);
 	}
 	
 	public void onMouseReleasedEvent(MouseEvent mouseEvent) {
-		;
+		uiManager.dispatchMouseClick(mouseEvent, false);
 	}
 	
 	public void onMouseDraggedEvent(MouseEvent mouseEvent) {

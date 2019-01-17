@@ -8,6 +8,8 @@ import engine.ui.components.UIComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 public class UIManager {
 	
@@ -57,6 +59,23 @@ public class UIManager {
 		for (UILayer layer : layers) {
 			for (UIComponent component : layer.getComponents()) {
 				component.onMouseMouved(mouseScreenPosition);
+			}
+		}
+	}
+	
+	public void dispatchMouseClick(MouseEvent mouseEvent, boolean pressed) {
+		dispatchMouseClick(mouseEvent.getButton(), new Point2D(mouseEvent.getX(), mouseEvent.getY()), pressed);
+	}
+	
+	public void dispatchMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
+		for (UILayer layer : layers) {
+			for (UIComponent component : layer.getComponents()) {
+				UIComponent highestComponent = component.getHeighestComponent();
+				
+				if (highestComponent != null) {
+					highestComponent.dispatchMouseClick(button, mouseScreenPosition, pressed);
+					return;
+				}
 			}
 		}
 	}

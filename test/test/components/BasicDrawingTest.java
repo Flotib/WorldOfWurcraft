@@ -1,6 +1,5 @@
 package test.components;
 
-import caceresenzo.libs.logger.Logger;
 import caceresenzo.libs.thread.ThreadUtils;
 import engine.GameEngine;
 import engine.texture.Texture;
@@ -26,13 +25,17 @@ public class BasicDrawingTest extends GameEngine {
 		UILayer mainLayer = uiManager.createLayer(0);
 		
 		LinearLayout linearLayout = new LinearLayout(10, 10, LinearLayout.VERTICAL);
-		final TextComponent helloText = new TextComponent("count");
-		linearLayout.addComponent(helloText);
-		linearLayout.addComponent(new ImageComponent(testImage.getImage()));
+		final TextComponent helloTextComponent = new TextComponent("count");
+		linearLayout.addComponent(helloTextComponent);
+		final ImageComponent testImageComponent = new ImageComponent(testImage.getImage());
+		linearLayout.addComponent(testImageComponent);
 		linearLayout.addComponent(new TextComponent("Hello"));
 		linearLayout.addComponent(new TextComponent("How Are you today ?"));
 		linearLayout.addComponent(new TextComponent("World"));
+		
 		linearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
+		helloTextComponent.setRenderMode(UIComponent.RENDER_DEBUG);
+		testImageComponent.setRenderMode(UIComponent.RENDER_DEBUG);
 		
 		// LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
 		// horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
@@ -60,7 +63,7 @@ public class BasicDrawingTest extends GameEngine {
 			public void run() {
 				for (int i = 0; i < 5000000; i++) {
 					ThreadUtils.sleep(100);
-					helloText.setText("r:" + i);
+					helloTextComponent.setText("r:" + i);
 				}
 			}
 		}).start();

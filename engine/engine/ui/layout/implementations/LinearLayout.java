@@ -72,6 +72,52 @@ public class LinearLayout extends UILayout {
 	}
 	
 	@Override
+	public double getAbsoluteXOf(UIComponent targetComponent) {
+		if (targetComponent.getParent() != this) {
+			throw new IllegalStateException("The parent component is not the same.");
+		}
+		
+		double absoluteX = getAbsoluteX();
+		
+		for (UIComponent component : getChildren()) {
+			component.validate();
+			
+			if (component == targetComponent) {
+				break;
+			}
+			
+			if (orientation == HORIZONTAL) {
+				absoluteX += component.getWidth();
+			}
+		}
+		
+		return absoluteX + targetComponent.getX();
+	}
+	
+	@Override
+	public double getAbsoluteYOf(UIComponent targetComponent) {
+		if (targetComponent.getParent() != this) {
+			throw new IllegalStateException("The parent component is not the same.");
+		}
+		
+		double absoluteY = getAbsoluteY();
+		
+		for (UIComponent component : getChildren()) {
+			component.validate();
+			
+			if (component == targetComponent) {
+				break;
+			}
+			
+			if (orientation == VERTICAL) {
+				absoluteY += component.getHeight();
+			}
+		}
+		
+		return absoluteY + targetComponent.getY();
+	}
+	
+	@Override
 	public void render(GraphicsContext graphics) {
 		graphics.save();
 		graphics.translate(x, -y);
