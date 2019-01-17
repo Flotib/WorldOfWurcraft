@@ -1,6 +1,5 @@
 package engine.ui.components;
 
-import caceresenzo.libs.logger.Logger;
 import engine.render.Renderable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -13,6 +12,7 @@ public abstract class UIComponent implements Renderable {
 	
 	public static final double INVALID = -1;
 	public static final double DEFAULT_SCALE = 1;
+	public static final double DEFAULT_CANVAS_RESCALE = 5;
 	
 	public static final byte RENDER_NORMAL = 0;
 	public static final byte RENDER_DEBUG = 1;
@@ -68,26 +68,20 @@ public abstract class UIComponent implements Renderable {
 		computeSize();
 		
 		graphics.save();
-		graphics.scale(1 / scale, -1 / scale);
 		
 		double componentX = x * scale;
 		double componentY = y * scale;
 		double componentWidth = width * scale;
 		double componentHeight = height * scale;
-		
-//		graphics.setFill(Color.GREEN);
-//		graphics.fillRect(componentX, -componentY, componentWidth, componentHeight);
 
 		graphics.setStroke(Color.PINK);
-		graphics.strokeRect(componentX, -componentY, componentWidth, componentHeight);
+		graphics.strokeRect(componentX, -componentY - componentHeight, componentWidth, componentHeight);
 		
 		double cornerLength = 2 * scale;
 		
 		graphics.setStroke(Color.RED);
 		graphics.strokeLine(componentX - 1, -componentY, componentX + cornerLength, -componentY);
-		graphics.strokeLine(componentX, -componentY - 1, componentX, -componentY + cornerLength);
-		
-		Logger.info(width);
+		graphics.strokeLine(componentX, -componentY + 1, componentX, -componentY - cornerLength);
 		
 		graphics.restore();
 	}

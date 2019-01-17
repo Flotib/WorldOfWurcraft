@@ -25,7 +25,7 @@ public class BasicDrawingTest extends GameEngine {
 		
 		UILayer mainLayer = uiManager.createLayer(0);
 		
-		LinearLayout linearLayout = new LinearLayout(10, 10, LinearLayout.VERTICAL);
+		LinearLayout linearLayout = new LinearLayout(50, 50, LinearLayout.VERTICAL);
 		final TextComponent helloText = new TextComponent("count");
 		linearLayout.addComponent(helloText);
 		linearLayout.addComponent(new ImageComponent(testImage.getImage(), 0, 0, 35, 35));

@@ -1,6 +1,7 @@
 package engine;
 
 import engine.ui.UIManager;
+import engine.ui.components.UIComponent;
 import engine.world.World;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -113,21 +114,14 @@ public class GameEngine extends Application {
 	}
 	
 	public void renderComponents() {
-
-		double scale = world.getViewport().getScale();
-		double translateX = world.getViewport().getTranslateX();
-		double translateY = world.getViewport().getTranslateY();
-		
 		GraphicsContext graphics = canvas.getGraphicsContext2D();
 		
 		graphics.save();
-		graphics.translate(canvas.getWidth() / 2, canvas.getHeight() / 2);
-		graphics.scale(1, -1);
-		
-		graphics.scale(scale, scale);
-		graphics.translate(translateX, translateY);
+		graphics.scale(UIComponent.DEFAULT_CANVAS_RESCALE, -UIComponent.DEFAULT_CANVAS_RESCALE);
 
+		graphics.save();
 		uiManager.render(canvas);
+		graphics.restore();
 			
 		graphics.restore();
 	}

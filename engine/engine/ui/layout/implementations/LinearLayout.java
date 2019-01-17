@@ -74,8 +74,7 @@ public class LinearLayout extends UILayout {
 	@Override
 	public void render(GraphicsContext graphics) {
 		graphics.save();
-		// graphics.scale(1 / scale, -1 / scale);
-		graphics.translate(x, y);
+		graphics.translate(x, -y);
 		
 		switch (orientation) {
 			case VERTICAL: {
