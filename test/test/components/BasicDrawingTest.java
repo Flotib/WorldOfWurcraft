@@ -1,13 +1,16 @@
 package test.components;
 
 import caceresenzo.libs.logger.Logger;
+import caceresenzo.libs.thread.ThreadUtils;
 import engine.GameEngine;
+import engine.texture.Texture;
+import engine.texture.TextureManager;
 import engine.ui.UILayer;
+import engine.ui.components.UIComponent;
 import engine.ui.components.implementations.ImageComponent;
 import engine.ui.components.implementations.TextComponent;
 import engine.ui.layout.implementations.LinearLayout;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -18,15 +21,49 @@ public class BasicDrawingTest extends GameEngine {
 	
 	@Override
 	protected void initialize() {
+		Texture testImage = TextureManager.load("test/test-image.jpg");
+		
 		UILayer mainLayer = uiManager.createLayer(0);
 		
 		LinearLayout linearLayout = new LinearLayout(10, 10, LinearLayout.VERTICAL);
-		linearLayout.addComponent(new TextComponent("Hentai"));
-		linearLayout.addComponent(new ImageComponent(new Image("test/MainMenuBar.png"), 0, 0));
+		final TextComponent helloText = new TextComponent("count");
+		linearLayout.addComponent(helloText);
+		linearLayout.addComponent(new ImageComponent(testImage.getImage(), 0, 0, 35, 35));
+		linearLayout.addComponent(new TextComponent("Hello"));
+		linearLayout.addComponent(new TextComponent("How Are you today ?"));
+		linearLayout.addComponent(new TextComponent("World"));
+		linearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
 		
-		for (int i = 0; i < 15; i++) {
-			linearLayout.addComponent(new TextComponent("#" + i));
-		}
+		// LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
+		// horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
+		// linearLayout.addComponent(horizontalLinearLayout);
+		// for (int i = 0; i < 15; i++) {
+		// if (i % 2 == 0) {
+		// ImageComponent component = new ImageComponent(testImage.getImage(), 0, 0, 20, 20);
+		// component.setRenderMode(UIComponent.RENDER_DEBUG);
+		//
+		// horizontalLinearLayout.addComponent(component);
+		// } else {
+		// TextComponent component = new TextComponent("##" + i);
+		// component.setRenderMode(UIComponent.RENDER_DEBUG);
+		//
+		// horizontalLinearLayout.addComponent(component);
+		// }
+		// }
+		//
+		// for (int i = 0; i < 15; i++) {
+		// linearLayout.addComponent(new TextComponent("#" + i));
+		// }
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < 5000000; i++) {
+					ThreadUtils.sleep(100);
+					helloText.setText("r:" + i);
+				}
+			}
+		}).start();
 		
 		mainLayer.add(linearLayout);
 	}
@@ -55,7 +92,7 @@ public class BasicDrawingTest extends GameEngine {
 		graphics.translate(translateX, translateY);
 		
 		renderGrid();
-			
+		
 		graphics.restore();
 	}
 	

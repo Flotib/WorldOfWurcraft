@@ -9,29 +9,49 @@ import javafx.scene.text.Font;
 
 public class TextComponent extends UIComponent {
 	
-	public static final Font HUD_FONT = Font.font("Arial", 12); //
-	
+	/* Variables */
 	private String text;
+	private Font font;
 	
+	/* Constructor */
 	public TextComponent() {
-		super();
-		
-		createLabel(null);
+		this(null);
 	}
 	
 	public TextComponent(String text) {
-		super();
-		
-		createLabel(text);
+		this(text, 0, 0);
 	}
 	
-	private void createLabel(String text) {
+	public TextComponent(String text, int x, int y) {
+		super();
+		
 		this.text = text;
+		this.font = DEFAULT_FONT;
+	}
+	
+	public String getText() {
+		return text;
+	}
+	
+	public void setText(String text) {
+		this.text = text;
+		
+		invalidate();
+	}
+	
+	public Font getFont() {
+		return font;
+	}
+	
+	public void setFont(Font font) {
+		this.font = font;
+		
+		invalidate();
 	}
 	
 	@Override
 	public void computeSize() {
-		double textWidth = Toolkit.getToolkit().getFontLoader().getFontMetrics(HUD_FONT).computeStringWidth(text);
+		double textWidth = Toolkit.getToolkit().getFontLoader().getFontMetrics(DEFAULT_FONT).computeStringWidth(text);
 		
 		setSize(textWidth, 12);
 	}
@@ -39,7 +59,7 @@ public class TextComponent extends UIComponent {
 	@Override
 	public void render(GraphicsContext graphics) {
 		graphics.setFill(Color.BLACK);
-		graphics.setFont(HUD_FONT);
+		graphics.setFont(DEFAULT_FONT);
 		
 		graphics.save();
 		graphics.scale(1 / scale, -1 / scale);

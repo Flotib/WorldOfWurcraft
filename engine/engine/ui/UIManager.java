@@ -47,11 +47,7 @@ public class UIManager {
 		
 		for (UILayer layer : layers) {
 			for (UIComponent component : layer.getComponents()) {
-				if (!component.isValid()) {
-					component.validate();
-				}
-				
-				component.render(graphics);
+				component.doRender(graphics);
 			}
 		}
 	}

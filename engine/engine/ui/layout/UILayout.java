@@ -1,7 +1,6 @@
 package engine.ui.layout;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import engine.ui.components.UIComponent;
@@ -37,19 +36,15 @@ public abstract class UILayout extends UIComponent {
 	}
 	
 	public boolean addComponent(UIComponent element) {
+		element.attachParent(this);
+		
 		return getChildren().add(element);
 	}
 	
 	public void addComponent(int index, UIComponent element) {
+		element.attachParent(this);
+		
 		children.add(index, element);
-	}
-	
-	public boolean addAllComponents(Collection<? extends UIComponent> collection) {
-		return getChildren().addAll(collection);
-	}
-	
-	public boolean addAllComponents(int index, Collection<? extends UIComponent> collection) {
-		return getChildren().addAll(index, collection);
 	}
 	
 	public boolean hasComponent(Object object) {
@@ -57,11 +52,15 @@ public abstract class UILayout extends UIComponent {
 	}
 	
 	public UIComponent removeComponent(int index) {
-		return children.remove(index);
+		getChildren().get(index).detachParent(this);
+		
+		return getChildren().remove(index);
 	}
 	
-	public boolean removeComponent(Object object) {
-		return getChildren().remove(object);
+	public boolean removeComponent(UIComponent element) {
+		element.detachParent(this);
+		
+		return getChildren().remove(element);
 	}
 	
 	public void clearComponents() {

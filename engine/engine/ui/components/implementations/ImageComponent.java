@@ -44,8 +44,10 @@ public class ImageComponent extends UIComponent {
 		
 		double imageX = x * scale;
 		double imageY = y * scale;
+		double imageWidth = width * scale;
+		double imageHeight = height * scale;
 		
-		graphics.drawImage(image, imageX, -imageY - height, width, height);
+		graphics.drawImage(image, imageX, -imageY - imageHeight, imageWidth, imageHeight);
 		graphics.restore();
 	}
 	

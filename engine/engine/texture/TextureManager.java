@@ -22,7 +22,10 @@ public class TextureManager {
 			return CACHE.get(path);
 		}
 		
-		return CACHE.put(path, new Texture(new Image(path)));
+		Texture texture = new Texture(new Image(path));
+		CACHE.put(path, texture);
+		
+		return texture;
 	}
 	
 	public static void push(String path, Texture texture) {
