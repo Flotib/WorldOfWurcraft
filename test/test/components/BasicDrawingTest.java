@@ -34,26 +34,26 @@ public class BasicDrawingTest extends GameEngine {
 		linearLayout.addComponent(new TextComponent("World"));
 		linearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
 		
-		LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
-		horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
-		linearLayout.addComponent(horizontalLinearLayout);
-		for (int i = 0; i < 15; i++) {
-			if (i % 2 == 0) {
-				ImageComponent component = new ImageComponent(testImage.getImage());
-				component.setRenderMode(UIComponent.RENDER_DEBUG);
-				
-				horizontalLinearLayout.addComponent(component);
-			} else {
-				TextComponent component = new TextComponent("##" + i);
-				component.setRenderMode(UIComponent.RENDER_DEBUG);
-				
-				horizontalLinearLayout.addComponent(component);
-			}
-		}
-		
-		for (int i = 0; i < 15; i++) {
-			linearLayout.addComponent(new TextComponent("#" + i));
-		}
+		// LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
+		// horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
+		// linearLayout.addComponent(horizontalLinearLayout);
+		// for (int i = 0; i < 15; i++) {
+		// if (i % 2 == 0) {
+		// ImageComponent component = new ImageComponent(testImage.getImage());
+		// component.setRenderMode(UIComponent.RENDER_DEBUG);
+		//
+		// horizontalLinearLayout.addComponent(component);
+		// } else {
+		// TextComponent component = new TextComponent("##" + i);
+		// component.setRenderMode(UIComponent.RENDER_DEBUG);
+		//
+		// horizontalLinearLayout.addComponent(component);
+		// }
+		// }
+		//
+		// for (int i = 0; i < 15; i++) {
+		// linearLayout.addComponent(new TextComponent("#" + i));
+		// }
 		
 		new Thread(new Runnable() {
 			@Override

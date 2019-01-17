@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import engine.ui.components.UIComponent;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -48,6 +49,14 @@ public class UIManager {
 		for (UILayer layer : layers) {
 			for (UIComponent component : layer.getComponents()) {
 				component.doRender(graphics);
+			}
+		}
+	}
+	
+	public void dispatchMouseMoved(Point2D mouseScreenPosition) {
+		for (UILayer layer : layers) {
+			for (UIComponent component : layer.getComponents()) {
+				component.onMouseMouved(mouseScreenPosition);
 			}
 		}
 	}

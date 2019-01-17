@@ -144,10 +144,14 @@ public class GameEngine extends Application {
 	
 	public void onMouseDraggedEvent(MouseEvent mouseEvent) {
 		mousePosition = computeSceneCursorPosition(mouseEvent.getX(), mouseEvent.getY());
+		
+		uiManager.dispatchMouseMoved(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
 	}
 	
 	public void onMouseMovedEvent(MouseEvent mouseEvent) {
 		mousePosition = computeSceneCursorPosition(mouseEvent.getX(), mouseEvent.getY());
+
+		uiManager.dispatchMouseMoved(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
 	}
 	
 	public void onKeyPressedEvent(KeyEvent keyEvent) {

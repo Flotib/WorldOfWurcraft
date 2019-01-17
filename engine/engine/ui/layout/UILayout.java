@@ -4,17 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.ui.components.UIComponent;
+import javafx.geometry.Point2D;
 
 public abstract class UILayout extends UIComponent {
 	
+	/* Variables */
 	private List<UIComponent> children;
 	
+	/* Constructor */
 	public UILayout() {
 		super();
 	}
 	
+	/* Constructor */
 	public UILayout(int x, int y) {
-		super(x, y, INVALID, INVALID);
+		super(x, y);
+	}
+	
+	@Override
+	public void onMouseMouved(Point2D mouseScreenPosition) {
+		super.onMouseMouved(mouseScreenPosition);
+
+		if (getVisibility() == VISIBILITY_GONE) {
+			return;
+		}
+		
+		if (children != null) {
+			for (UIComponent component : getChildren()) {
+				component.onMouseMouved(mouseScreenPosition);
+			}
+		}
 	}
 	
 	/**
@@ -75,6 +94,9 @@ public abstract class UILayout extends UIComponent {
 		return children.set(index, element);
 	}
 	
+	/**
+	 * @return Children list present in this {@link UILayout}.
+	 */
 	public List<UIComponent> getChildren() {
 		return checkAndCreate();
 	}
