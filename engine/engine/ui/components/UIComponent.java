@@ -8,11 +8,11 @@ import javafx.scene.text.Font;
 public abstract class UIComponent implements Renderable {
 	
 	/* Constants */
-	public static final Font DEFAULT_FONT = Font.font("Arial", 12);
+	public static final Font DEFAULT_FONT = Font.font("Arial", 15);
 	
 	public static final double INVALID = -1;
 	public static final double DEFAULT_SCALE = 1;
-	public static final double DEFAULT_CANVAS_RESCALE = 5;
+	public static final double DEFAULT_CANVAS_RESCALE = 1;
 	
 	public static final byte RENDER_NORMAL = 0;
 	public static final byte RENDER_DEBUG = 1;

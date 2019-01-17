@@ -25,35 +25,35 @@ public class BasicDrawingTest extends GameEngine {
 		
 		UILayer mainLayer = uiManager.createLayer(0);
 		
-		LinearLayout linearLayout = new LinearLayout(50, 50, LinearLayout.VERTICAL);
+		LinearLayout linearLayout = new LinearLayout(10, 10, LinearLayout.VERTICAL);
 		final TextComponent helloText = new TextComponent("count");
 		linearLayout.addComponent(helloText);
-		linearLayout.addComponent(new ImageComponent(testImage.getImage(), 0, 0, 35, 35));
+		linearLayout.addComponent(new ImageComponent(testImage.getImage()));
 		linearLayout.addComponent(new TextComponent("Hello"));
 		linearLayout.addComponent(new TextComponent("How Are you today ?"));
 		linearLayout.addComponent(new TextComponent("World"));
 		linearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
 		
-		// LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
-		// horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
-		// linearLayout.addComponent(horizontalLinearLayout);
-		// for (int i = 0; i < 15; i++) {
-		// if (i % 2 == 0) {
-		// ImageComponent component = new ImageComponent(testImage.getImage(), 0, 0, 20, 20);
-		// component.setRenderMode(UIComponent.RENDER_DEBUG);
-		//
-		// horizontalLinearLayout.addComponent(component);
-		// } else {
-		// TextComponent component = new TextComponent("##" + i);
-		// component.setRenderMode(UIComponent.RENDER_DEBUG);
-		//
-		// horizontalLinearLayout.addComponent(component);
-		// }
-		// }
-		//
-		// for (int i = 0; i < 15; i++) {
-		// linearLayout.addComponent(new TextComponent("#" + i));
-		// }
+		LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
+		horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
+		linearLayout.addComponent(horizontalLinearLayout);
+		for (int i = 0; i < 15; i++) {
+			if (i % 2 == 0) {
+				ImageComponent component = new ImageComponent(testImage.getImage());
+				component.setRenderMode(UIComponent.RENDER_DEBUG);
+				
+				horizontalLinearLayout.addComponent(component);
+			} else {
+				TextComponent component = new TextComponent("##" + i);
+				component.setRenderMode(UIComponent.RENDER_DEBUG);
+				
+				horizontalLinearLayout.addComponent(component);
+			}
+		}
+		
+		for (int i = 0; i < 15; i++) {
+			linearLayout.addComponent(new TextComponent("#" + i));
+		}
 		
 		new Thread(new Runnable() {
 			@Override
@@ -70,7 +70,7 @@ public class BasicDrawingTest extends GameEngine {
 	
 	@Override
 	public void tick(double delta) {
-		Logger.info("Mouse: " + mousePosition);
+		// Logger.info("Mouse: " + mousePosition);
 	}
 	
 	@Override

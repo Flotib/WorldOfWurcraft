@@ -88,8 +88,8 @@ public class LinearLayout extends UILayout {
 			
 			case HORIZONTAL: {
 				for (UIComponent component : getChildren()) {
-					graphics.translate(component.getWidth() * scale, 0);
 					component.render(graphics);
+					graphics.translate(component.getWidth() * scale, 0);
 				}
 				
 				break;
