@@ -209,6 +209,7 @@ public class GameEngine extends Application {
 	private Scene createScene(Stage stage) {
 		Group group = new Group();
 		group.getChildren().add(canvas = new Canvas());
+		canvas.setFocusTraversable(true);
 		
 		Scene scene = new Scene(group);
 		

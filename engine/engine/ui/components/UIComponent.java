@@ -15,6 +15,7 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	
 	/* Constants */
 	public static final Font DEFAULT_FONT = Font.font("Arial", 15);
+	public static final Paint DEFAULT_COLOR = Color.BLACK;
 	
 	public static final double INVALID = -1;
 	public static final double DEFAULT_SCALE = 1;
@@ -50,6 +51,7 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	protected UIComponent parent;
 	protected byte renderMode, visibility;
 	private OnClickListener onClickListener;
+	protected boolean enabled, clickable;
 	
 	/* Constructor */
 	public UIComponent() {
@@ -67,6 +69,8 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		
+		this.enabled = this.clickable = true;
 	}
 	
 	/**
@@ -144,6 +148,10 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	 *            Tarnet new mouse position of screen.
 	 */
 	public void onMouseMouved(Point2D mouseScreenPosition) {
+		if (!enabled) {
+			return;
+		}
+		
 		selected = collide(mouseScreenPosition);
 	}
 	
@@ -169,8 +177,19 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		return null;
 	}
 	
+	/**
+	 * Dispatch a mouse click event on this {@link UIComponent}.<br>
+	 * If there is any {@link OnClickListener} attached to it, this will call {@link OnClickListener#onClick(UIComponent, MouseButton, Point2D, boolean)}.
+	 * 
+	 * @param button
+	 *            Target mouse button.
+	 * @param mouseScreenPosition
+	 *            Mouse position when event was fired.
+	 * @param pressed
+	 *            If the mouse click is pressed or released.
+	 */
 	public void dispatchMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
-		if (onClickListener != null) {
+		if (onClickListener != null && isClickable()) {
 			onClickListener.onClick(this, button, mouseScreenPosition, pressed);
 		}
 	}
@@ -368,6 +387,40 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	 */
 	public void setOnClickListener(OnClickListener onClickListener) {
 		this.onClickListener = onClickListener;
+	}
+	
+	/**
+	 * @return If the {@link UIComponent} is enabled or not.
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	/**
+	 * Set new enabled state for this {@link UIComponent}.
+	 * 
+	 * @param enabled
+	 *            New state.
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	
+	/**
+	 * @return If the {@link UIComponent} is allow click event to be dispatched.
+	 */
+	public boolean isClickable() {
+		return clickable;
+	}
+	
+	/**
+	 * Set a new clickable state for this {@link UIComponent}.
+	 * 
+	 * @param clickable
+	 *            New state.
+	 */
+	public void setClickable(boolean clickable) {
+		this.clickable = clickable;
 	}
 	
 	/**

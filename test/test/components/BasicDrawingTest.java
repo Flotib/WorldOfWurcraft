@@ -1,22 +1,29 @@
 package test.components;
 
+import caceresenzo.libs.logger.Logger;
 import caceresenzo.libs.thread.ThreadUtils;
 import engine.GameEngine;
 import engine.texture.Texture;
 import engine.texture.TextureManager;
 import engine.ui.UILayer;
 import engine.ui.components.UIComponent;
+import engine.ui.components.implementations.ButtonComponent;
 import engine.ui.components.implementations.ImageComponent;
 import engine.ui.components.implementations.TextComponent;
 import engine.ui.layout.implementations.LinearLayout;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class BasicDrawingTest extends GameEngine {
 	private double lastX = -1, lastY = -1;
+	
+	private LinearLayout mainLinearLayout;
 	
 	@Override
 	protected void initialize() {
@@ -24,18 +31,23 @@ public class BasicDrawingTest extends GameEngine {
 		
 		UILayer mainLayer = uiManager.createLayer(0);
 		
-		LinearLayout linearLayout = new LinearLayout(10, 10, LinearLayout.VERTICAL);
+		LinearLayout linearLayout = mainLinearLayout = new LinearLayout(10, 10, LinearLayout.VERTICAL);
 		final TextComponent helloTextComponent = new TextComponent("count");
 		linearLayout.addComponent(helloTextComponent);
 		final ImageComponent testImageComponent = new ImageComponent(testImage.getImage());
 		linearLayout.addComponent(testImageComponent);
-		linearLayout.addComponent(new TextComponent("Hello"));
+		linearLayout.addComponent(new TextComponent("Hello", 0, 0, 500, 50));
 		linearLayout.addComponent(new TextComponent("How Are you today ?"));
 		linearLayout.addComponent(new TextComponent("World"));
+		linearLayout.addComponent(new ButtonComponent("button with text"));
+		linearLayout.addComponent(new ButtonComponent(testImage.getImage()));
+		
+		helloTextComponent.setFont(Font.font("Courier New", 48));
+		helloTextComponent.setColor(Color.AQUAMARINE);
 		
 		linearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
-		helloTextComponent.setRenderMode(UIComponent.RENDER_DEBUG);
-		testImageComponent.setRenderMode(UIComponent.RENDER_DEBUG);
+		// helloTextComponent.setRenderMode(UIComponent.RENDER_DEBUG);
+		// testImageComponent.setRenderMode(UIComponent.RENDER_DEBUG);
 		
 		// LinearLayout horizontalLinearLayout = new LinearLayout(LinearLayout.HORIZONTAL);
 		// horizontalLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
@@ -97,6 +109,29 @@ public class BasicDrawingTest extends GameEngine {
 		renderGrid();
 		
 		graphics.restore();
+	}
+	
+	@Override
+	public void onKeyPressedEvent(KeyEvent keyEvent) {
+		super.onKeyPressedEvent(keyEvent);
+		
+		switch (keyEvent.getCode()) {
+			case D: {
+				mainLinearLayout.setRenderMode(UIComponent.RENDER_DEBUG);
+				break;
+			}
+			
+			case F: {
+				mainLinearLayout.setRenderMode(UIComponent.RENDER_NORMAL);
+				break;
+			}
+			
+			default: {
+				break;
+			}
+		}
+		
+		Logger.info("Pressed: " + keyEvent.getCode());
 	}
 	
 	@Override

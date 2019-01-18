@@ -11,16 +11,12 @@ public class ImageComponent extends UIComponent {
 	
 	/* Constructor */
 	public ImageComponent(Image image) {
-		super();
-		
-		this.image = image;
+		this(image, 0, 0);
 	}
 	
 	/* Constructor */
 	public ImageComponent(Image image, double x, double y) {
-		super(x, y);
-		
-		this.image = image;
+		this(image, 0, 0, INVALID, INVALID);
 	}
 	
 	/* Constructor */

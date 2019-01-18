@@ -27,7 +27,7 @@ public abstract class UILayout extends UIComponent {
 	public void onMouseMouved(Point2D mouseScreenPosition) {
 		super.onMouseMouved(mouseScreenPosition);
 		
-		if (getVisibility() == VISIBILITY_GONE) {
+		if (!enabled || getVisibility() == VISIBILITY_GONE) {
 			return;
 		}
 		
@@ -45,7 +45,7 @@ public abstract class UILayout extends UIComponent {
 				for (UIComponent component : getChildren()) {
 					UIComponent highestComponent = component.getHeighestComponent();
 					
-					if (highestComponent != null) {
+					if (highestComponent != null && highestComponent.isEnabled()) {
 						return highestComponent;
 					}
 				}
