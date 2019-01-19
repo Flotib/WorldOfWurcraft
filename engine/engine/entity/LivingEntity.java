@@ -1,5 +1,10 @@
 package engine.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import engine.game.content.effect.Effect;
+
 public class LivingEntity extends Entity {
 	
 	/* Constants */
@@ -12,6 +17,7 @@ public class LivingEntity extends Entity {
 	protected double rage;
 	protected double experience, maxExperience;
 	protected int level;
+	protected List<Effect> effects;
 	
 	/* Constructor */
 	public LivingEntity(String name, double health, double mana, double rage, double experience, int level) {
@@ -32,6 +38,8 @@ public class LivingEntity extends Entity {
 		this.rage = rage;
 		this.experience = maxExperience = experience;
 		this.level = level;
+		
+		this.effects = new ArrayList<>();
 	}
 	
 	/**
@@ -97,6 +105,33 @@ public class LivingEntity extends Entity {
 		}
 		
 		setRage(newRage);
+	}
+	
+	public void giveEffect(Effect effect) {
+		Effect oldEffect = getEffectByClass(effect.getClass());
+		
+		if (oldEffect != null) {
+			effect.attachPreviousEffect(effect);
+			cancelEffect(oldEffect);
+		}
+		
+		effects.add(effect);
+	}
+	
+	public Effect getEffectByClass(Class<? extends Effect> effectClass) {
+		for (Effect effect : effects) {
+			if (effect.getClass().equals(effectClass)) {
+				return effect;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void cancelEffect(Effect effect) {
+		if (effects.contains(effect)) {
+			effects.remove(effect);
+		}
 	}
 	
 	/**

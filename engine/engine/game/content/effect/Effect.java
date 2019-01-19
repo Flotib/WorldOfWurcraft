@@ -25,8 +25,8 @@ public class Effect {
 		;
 	}
 	
-	public void execute(LivingEntity livingEntity) {
-		;
+	public boolean execute(LivingEntity livingEntity) {
+		return true;
 	}
 	
 	public void endEffect() {
