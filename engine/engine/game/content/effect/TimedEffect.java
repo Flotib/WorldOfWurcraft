@@ -5,7 +5,7 @@ import engine.texture.Texture;
 public class TimedEffect extends Effect {
 	
 	/* Variables */
-	private int remainingTime;
+	protected int remainingTime;
 	
 	/* Constructor */
 	public TimedEffect(Texture texture, int remainingTime) {

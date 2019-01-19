@@ -26,6 +26,10 @@ public class Action implements Tickable {
 		this.costType = costType;
 	}
 	
+	public void prepare(LivingEntity nextSource, LivingEntity nextTarget) {
+		;
+	}
+	
 	public int use(LivingEntity source, LivingEntity target) {
 		return ACTION_SUCCESS;
 	}
