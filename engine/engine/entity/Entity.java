@@ -61,6 +61,15 @@ public class Entity extends GameObject {
 	}
 	
 	/**
+	 * If the {@link Entity} is alive, set his health to 0.
+	 */
+	public void kill() {
+		if (isAlive()) {
+			setHealth(0);
+		}
+	}
+	
+	/**
 	 * @return {@link Entity}'s health.
 	 */
 	public double getHealth() {
