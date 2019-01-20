@@ -42,11 +42,11 @@ public class FlotibGame extends GameEngine {
 	public static final Texture TEXTURE_ICON_SPELL_RITUALOFSACRIFICE = TEXTURE_LOADER.queue("assets/icons/spells/spell-ritual-of-sacrifice.png");
 	public static final Texture TEXTURE_ICON_SPELL_BLOODBLAST = TEXTURE_LOADER.queue("assets/icons/spells/spell-blood-blast.png");
 	
-	// public static final Texture TEXTURE_ICON_SPELL_ITEM_MASK = TEXTURE_LOADER.queue("assets/inventory/spellbar/disabled_mask.png");
+	public static final Texture TEXTURE_INVENTORY_DISABLED_ITEM_MASK = TEXTURE_LOADER.queue("assets/inventory/mask/disabled_mask.png");
 	
 	public static final Texture TEXTURE_ICON_EFFECT_BUFF_RENEW = TEXTURE_LOADER.queue("assets/icons/effects/effect-buff-renew.png");
 	public static final Texture TEXTURE_ICON_EFFECT_BUFF_BLOODRAGE = TEXTURE_LOADER.queue("assets/icons/effects/effect-buff-blood-rage.png");
-
+	
 	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_BURNING = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-burning.png");
 	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_REND = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-rend.png");
 	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_CORRUPTION = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-corruption.png");

@@ -3,10 +3,10 @@ package game.action.attack.test;
 import java.util.List;
 
 import engine.entity.LivingEntity;
+import engine.game.content.tooltip.TooltipBuilder;
+import engine.game.content.tooltip.TooltipData;
 import game.FlotibGame;
 import game.action.attack.Attack;
-import game.tooltip.TooltipBuilder;
-import game.tooltip.TooltipData;
 import javafx.scene.paint.Color;
 
 public class EnemyLevelUpDebugAttack extends Attack {

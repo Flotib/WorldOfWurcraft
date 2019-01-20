@@ -3,7 +3,6 @@ package engine.ui.layout;
 import java.util.ArrayList;
 import java.util.List;
 
-import caceresenzo.libs.logger.Logger;
 import engine.ui.components.UIComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -110,7 +109,7 @@ public abstract class UILayout extends UIComponent {
 	
 	public boolean addComponent(UIComponent element) {
 		element.attachParent(this);
-		Logger.info("Attached parent");
+		// Logger.info("Attached parent");
 		
 		return getChildren().add(element);
 	}

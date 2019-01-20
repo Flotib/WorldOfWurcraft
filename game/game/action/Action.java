@@ -3,10 +3,10 @@ package game.action;
 import java.util.List;
 
 import engine.entity.LivingEntity;
+import engine.game.content.tooltip.TooltipBuilder;
+import engine.game.content.tooltip.TooltipData;
 import engine.texture.Texture;
 import engine.tick.Tickable;
-import game.tooltip.TooltipBuilder;
-import game.tooltip.TooltipData;
 import javafx.scene.paint.Color;
 
 public class Action implements Tickable {

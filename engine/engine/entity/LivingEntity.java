@@ -9,6 +9,7 @@ public class LivingEntity extends Entity {
 	
 	/* Constants */
 	public static final double RAGE_MAX = 100D;
+	public static final double DEFAULT_EXPERIENCE_MULTIPLIER = 1.2D;
 	
 	/* Variables */
 	protected String name;
@@ -43,12 +44,12 @@ public class LivingEntity extends Entity {
 	}
 	
 	/**
-	 * Will call {@link #levelUp(double)} with a increase of the max experience value of 20% (1.20).
+	 * Will call {@link #levelUp(double)} with a increase of the max experience value of 20% (1.20) (using {@link #DEFAULT_EXPERIENCE_MULTIPLIER}).
 	 * 
 	 * @see #levelUp(double) Leveling up with custom multiplier.
 	 */
 	public void levelUp() {
-		levelUp(1.20);
+		levelUp(DEFAULT_EXPERIENCE_MULTIPLIER);
 	}
 	
 	/**
@@ -61,7 +62,7 @@ public class LivingEntity extends Entity {
 	 */
 	public void levelUp(double nextMaxExperienceMultiplier) {
 		level += 1;
-		experience = 0;
+		experience -= maxExperience;
 		maxExperience *= nextMaxExperienceMultiplier;
 		
 		onLevelChanged();
@@ -73,6 +74,31 @@ public class LivingEntity extends Entity {
 	 */
 	public void onLevelChanged() {
 		;
+	}
+	
+	/**
+	 * Check the experience and level up if the max experience has been reached.<br>
+	 * This will use the {@link #DEFAULT_EXPERIENCE_MULTIPLIER} as level multiplier.
+	 * 
+	 * @see #checkLevel(double)
+	 */
+	public void checkLevel() {
+		checkLevel(DEFAULT_EXPERIENCE_MULTIPLIER);
+	}
+	
+	/**
+	 * Check the experience and level up if the max experience has been reached and use a level multiplier to set the next max experience value.<br>
+	 * This function will call herself recursively to get as much level as possible.
+	 * 
+	 * @param nextMaxExperienceMultiplier
+	 *            Next max experience multiplier.
+	 * @see #levelUp(double)
+	 */
+	public void checkLevel(double nextMaxExperienceMultiplier) {
+		if (experience > maxExperience) {
+			levelUp(nextMaxExperienceMultiplier);
+			checkLevel();
+		}
 	}
 	
 	/**
@@ -174,13 +200,15 @@ public class LivingEntity extends Entity {
 	}
 	
 	/**
-	 * Set a new experience value for this {@link LivingEntity}.
+	 * Give some experience for this {@link LivingEntity}.
 	 * 
-	 * @param experience
-	 *            New mana experience.
+	 * @param amount
+	 *            Given experience amount.
 	 */
-	public void setExperience(double experience) {
-		this.experience = experience;
+	public void giveExperience(double amount) {
+		this.experience += amount;
+		
+		checkLevel();
 	}
 	
 	/**

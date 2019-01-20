@@ -4,12 +4,12 @@ import java.util.List;
 
 import caceresenzo.libs.random.Randomizer;
 import engine.entity.LivingEntity;
+import engine.game.content.tooltip.TooltipBuilder;
+import engine.game.content.tooltip.TooltipData;
 import game.FlotibGame;
 import game.action.Action;
 import game.action.spell.AttackSpell;
 import game.effect.debuff.BurningDebuffEffect;
-import game.tooltip.TooltipBuilder;
-import game.tooltip.TooltipData;
 import javafx.scene.paint.Color;
 
 public class FireballSpell extends AttackSpell {
