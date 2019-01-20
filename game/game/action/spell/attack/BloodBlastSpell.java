@@ -21,7 +21,7 @@ public class BloodBlastSpell extends HealingSpell {
 	
 	/* Constructor */
 	public BloodBlastSpell() {
-		super(FlotibGame.TEXTURE_TEST, 60, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_BLOODBLAST, 60, Action.CostType.MANA);
 		
 		this.cost2 = 50;
 		this.costType2 = Action.CostType.RAGE;

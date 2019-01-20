@@ -19,7 +19,7 @@ public class FireballSpell extends AttackSpell {
 	
 	/* Constructor */
 	public FireballSpell() {
-		super(FlotibGame.TEXTURE_TEST, 30, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_FIREBALL, 30, Action.CostType.MANA);
 		
 		this.minDamage = 14;
 		this.maxDamage = 23;

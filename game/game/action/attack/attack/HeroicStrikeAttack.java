@@ -18,7 +18,7 @@ public class HeroicStrikeAttack extends Attack {
 	
 	/* Constructor */
 	public HeroicStrikeAttack() {
-		super(FlotibGame.TEXTURE_TEST, 15, Action.CostType.RAGE);
+		super(FlotibGame.TEXTURE_ICON_ABILITY_HEROICSTRIKE, 15, Action.CostType.RAGE);
 		
 		this.damage = 11;
 	}

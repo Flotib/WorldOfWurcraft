@@ -18,7 +18,7 @@ public class BloodyHitAttack extends Attack {
 	
 	/* Constructor */
 	public BloodyHitAttack() {
-		super(FlotibGame.TEXTURE_TEST, 20, Action.CostType.RAGE);
+		super(FlotibGame.TEXTURE_ICON_ABILITY_BLOODYHIT, 20, Action.CostType.RAGE);
 		
 		this.damage = 4;
 	}

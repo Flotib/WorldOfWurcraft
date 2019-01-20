@@ -18,7 +18,7 @@ public class FlashHealHealingSpell extends HealingSpell {
 	
 	/* Constructor */
 	public FlashHealHealingSpell() {
-		super(FlotibGame.TEXTURE_TEST, 35, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_FLASHHEAL, 35, Action.CostType.MANA);
 		
 		this.minHealing = 54;
 		this.maxHealing = 67;

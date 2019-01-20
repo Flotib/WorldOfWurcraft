@@ -1,4 +1,4 @@
-package engine.game.content.item.base;
+package engine.game.content.item;
 
 import engine.render.Renderable;
 import engine.texture.Texture;

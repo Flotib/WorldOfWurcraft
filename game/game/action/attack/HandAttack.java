@@ -11,7 +11,7 @@ import game.tooltip.TooltipData;
 public class HandAttack extends Attack {
 	
 	public HandAttack() {
-		super(FlotibGame.TEXTURE_TEST, 0, CostType.NOTHING);
+		super(FlotibGame.TEXTURE_ICON_ABILITY_BASEATTACK, 0, CostType.NOTHING);
 	}
 	
 	@Override

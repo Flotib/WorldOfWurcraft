@@ -18,7 +18,7 @@ public class ImmolationSpell extends AttackSpell {
 	
 	/* Constructor */
 	public ImmolationSpell() {
-		super(FlotibGame.TEXTURE_TEST, 25, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_IMMOLATION, 25, Action.CostType.MANA);
 		
 		this.amount = 8;
 		this.damage = 4;

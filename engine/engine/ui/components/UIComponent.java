@@ -71,6 +71,12 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		this.height = height;
 		
 		this.enabled = this.clickable = true;
+		
+		initialize();
+	}
+	
+	protected void initialize() {
+		;
 	}
 	
 	/**
@@ -267,6 +273,16 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	public void setPosition(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Set a new x and y position for this {@link UIComponent}.
+	 * 
+	 * @param point2d
+	 *            New position.
+	 */
+	public void setPosition(Point2D point2d) {
+		setPosition(point2d.getX(), point2d.getY());
 	}
 	
 	/**

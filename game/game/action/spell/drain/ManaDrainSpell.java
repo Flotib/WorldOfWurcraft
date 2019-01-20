@@ -18,7 +18,7 @@ public class ManaDrainSpell extends HealingSpell {
 	
 	/* Constructor */
 	public ManaDrainSpell() {
-		super(FlotibGame.TEXTURE_TEST, 19, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_MANADRAIN, 19, Action.CostType.MANA);
 		
 		this.min = 8;
 		this.max = min * 5;

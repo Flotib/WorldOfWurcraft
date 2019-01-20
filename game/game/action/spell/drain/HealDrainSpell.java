@@ -18,7 +18,7 @@ public class HealDrainSpell extends HealingSpell {
 	
 	/* Constructor */
 	public HealDrainSpell() {
-		super(FlotibGame.TEXTURE_TEST, 17, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_LIFEDRAIN, 17, Action.CostType.MANA);
 		
 		this.min = 3;
 		this.max = min * 5;

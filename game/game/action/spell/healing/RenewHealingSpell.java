@@ -19,7 +19,7 @@ public class RenewHealingSpell extends HealingSpell {
 	
 	/* Constructor */
 	public RenewHealingSpell() {
-		super(FlotibGame.TEXTURE_TEST, 20, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_RENEW, 20, Action.CostType.MANA);
 		
 		this.amount = 20;
 		this.buffMaxHealing = amount * 15;

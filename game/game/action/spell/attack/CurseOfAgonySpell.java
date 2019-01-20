@@ -18,7 +18,7 @@ public class CurseOfAgonySpell extends AttackSpell {
 	
 	/* Constructor */
 	public CurseOfAgonySpell() {
-		super(FlotibGame.TEXTURE_TEST, 25, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_CURSEOFAGONY, 25, Action.CostType.MANA);
 		
 		this.debuffMinDamage = 7;
 		this.debuffMaxDamage = debuffMinDamage * 12;

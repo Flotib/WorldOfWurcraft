@@ -147,6 +147,13 @@ public class Action implements Tickable {
 	}
 	
 	/**
+	 * @return {@link Action}'s representative icon.
+	 */
+	public Texture getIcon() {
+		return icon;
+	}
+	
+	/**
 	 * Type of cost.
 	 * 
 	 * @author Enzo CACERES

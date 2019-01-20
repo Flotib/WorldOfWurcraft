@@ -18,7 +18,7 @@ public class CorruptionSpell extends AttackSpell {
 	
 	/* Constructor */
 	public CorruptionSpell() {
-		super(FlotibGame.TEXTURE_TEST, 35, Action.CostType.MANA);
+		super(FlotibGame.TEXTURE_ICON_SPELL_CORRUPTION, 35, Action.CostType.MANA);
 		
 		this.amount = 10;
 		this.debuffMaxDamage = amount * 4;

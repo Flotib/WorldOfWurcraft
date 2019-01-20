@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 public class ImageComponent extends UIComponent {
 	
 	/* Variables */
-	private Image image;
+	protected Image image;
 	
 	/* Constructor */
 	public ImageComponent(Image image) {
@@ -35,6 +35,10 @@ public class ImageComponent extends UIComponent {
 	
 	@Override
 	public void render(GraphicsContext graphics) {
+		if (image == null) {
+			return;
+		}
+		
 		graphics.save();
 		graphics.scale(1 / scale, -1 / scale);
 		

@@ -18,7 +18,7 @@ public class BloodRageAttack extends Attack {
 	
 	/* Constructor */
 	public BloodRageAttack() {
-		super(FlotibGame.TEXTURE_TEST, 0, Action.CostType.HEALTH);
+		super(FlotibGame.TEXTURE_ICON_ABILITY_BLOODRAGE, 0, Action.CostType.HEALTH);
 		
 		this.amount = 20;
 	}

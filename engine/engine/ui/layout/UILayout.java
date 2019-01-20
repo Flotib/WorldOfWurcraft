@@ -100,6 +100,10 @@ public abstract class UILayout extends UIComponent {
 		return children;
 	}
 	
+	protected boolean hasChildren() {
+		return children != null;
+	}
+	
 	public boolean hasComponents() {
 		return getChildren().isEmpty();
 	}

@@ -4,7 +4,6 @@ import java.util.List;
 
 import caceresenzo.libs.random.Randomizer;
 import engine.entity.LivingEntity;
-import engine.texture.Texture;
 import game.FlotibGame;
 import game.action.Action;
 import game.action.attack.Attack;
@@ -21,8 +20,8 @@ public class RitualOfSacrificeAttack extends Attack {
 	private int damage;
 	
 	/* Constructor */
-	public RitualOfSacrificeAttack(Texture icon, int cost, CostType costType) {
-		super(FlotibGame.TEXTURE_TEST, 24, Action.CostType.MANA);
+	public RitualOfSacrificeAttack() {
+		super(FlotibGame.TEXTURE_ICON_SPELL_RITUALOFSACRIFICE, 24, Action.CostType.MANA);
 		
 		this.cost2 = 15;
 		this.costType2 = Action.CostType.RAGE;

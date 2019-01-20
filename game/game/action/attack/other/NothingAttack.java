@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 public class NothingAttack extends Attack {
 	
 	public NothingAttack() {
-		super(FlotibGame.TEXTURE_TEST, 0, CostType.NOTHING);
+		super(FlotibGame.TEXTURE_ICON_SPELL_NOTHING, 0, CostType.NOTHING);
 	}
 	
 	@Override

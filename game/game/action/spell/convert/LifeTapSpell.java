@@ -17,7 +17,7 @@ public class LifeTapSpell extends Spell {
 	
 	/* Constructor */
 	public LifeTapSpell() {
-		super(FlotibGame.TEXTURE_TEST, 20, Action.CostType.HEALTH);
+		super(FlotibGame.TEXTURE_ICON_SPELL_LIFETAP, 20, Action.CostType.HEALTH);
 		
 		this.amount = 20;
 	}

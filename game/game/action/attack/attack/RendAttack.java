@@ -18,7 +18,7 @@ public class RendAttack extends Attack {
 	
 	/* Constructor */
 	public RendAttack() {
-		super(FlotibGame.TEXTURE_TEST, 10, Action.CostType.RAGE);
+		super(FlotibGame.TEXTURE_ICON_ABILITY_REND, 10, Action.CostType.RAGE);
 
 		this.amount = 5;
 		this.debuffDamage = 15;
