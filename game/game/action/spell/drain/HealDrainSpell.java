@@ -1,35 +1,40 @@
-package game.action.spell.healing;
+package game.action.spell.drain;
 
 import java.util.List;
 
+import caceresenzo.libs.random.Randomizer;
 import engine.entity.LivingEntity;
 import game.FlotibGame;
 import game.action.Action;
 import game.action.spell.HealingSpell;
-import game.effect.buff.RenewRegenBuffEffect;
 import game.tooltip.TooltipBuilder;
 import game.tooltip.TooltipData;
 import javafx.scene.paint.Color;
 
-public class RenewHealingSpell extends HealingSpell {
+public class HealDrainSpell extends HealingSpell {
 	
 	/* Variables */
-	private int amount;
-	private int buffMaxHealing;
+	private int min, max;
 	
 	/* Constructor */
-	public RenewHealingSpell() {
-		super(FlotibGame.TEXTURE_TEST, 20, Action.CostType.MANA);
+	public HealDrainSpell() {
+		super(FlotibGame.TEXTURE_TEST, 17, Action.CostType.MANA);
 		
-		this.amount = 20;
-		this.buffMaxHealing = amount * 15;
+		this.min = 3;
+		this.max = min * 5;
 	}
 	
 	@Override
 	public int use(LivingEntity source, LivingEntity target) {
 		source.offsetMana(-cost);
 		
-		source.giveEffect(new RenewRegenBuffEffect(this));
+		int drain = min * Randomizer.nextRangeInt(1, 5);
+		if (target.getHealth() < drain) {
+			drain = (int) target.getHealth();
+		}
+		
+		target.offsetHealth(-drain);
+		source.offsetHealth(drain);
 		
 		return ACTION_SUCCESS;
 	}
@@ -37,19 +42,15 @@ public class RenewHealingSpell extends HealingSpell {
 	@Override
 	public List<TooltipData> createTooltip() {
 		return new TooltipBuilder() //
-				.title("Renew") //
+				.title("Heal Drain") //
 				.description("Mana : " + cost) //
-				.description("Heals you of " + buffMaxHealing + " damage over 15 rounds.").color(Color.YELLOW) //
+				.description("Transfers between " + min + " and " + max + " health from the target to the caster.").color(Color.YELLOW) //
 				.build();
 	}
 	
 	@Override
 	public boolean hasCachedTooltip() {
 		return false;
-	}
-	
-	public int getAmount() {
-		return amount;
 	}
 	
 }

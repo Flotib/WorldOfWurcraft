@@ -108,20 +108,24 @@ public class LivingEntity extends Entity {
 	}
 	
 	public void giveEffect(Effect effect) {
-		Effect oldEffect = getEffectByClass(effect.getClass());
-		
-		if (oldEffect != null) {
-			effect.attachPreviousEffect(effect);
-			cancelEffect(oldEffect);
+		if (effect != null) {
+			Effect oldEffect = getEffectByClass(effect.getClass());
+			
+			if (oldEffect != null) {
+				effect.attachPreviousEffect(effect);
+				cancelEffect(oldEffect);
+			}
+			
+			effects.add(effect);
 		}
-		
-		effects.add(effect);
 	}
 	
 	public Effect getEffectByClass(Class<? extends Effect> effectClass) {
-		for (Effect effect : effects) {
-			if (effect.getClass().equals(effectClass)) {
-				return effect;
+		if (effectClass != null) {
+			for (Effect effect : effects) {
+				if (effect.getClass().equals(effectClass)) {
+					return effect;
+				}
 			}
 		}
 		

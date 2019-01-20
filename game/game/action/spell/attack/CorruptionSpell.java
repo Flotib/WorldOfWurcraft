@@ -1,35 +1,34 @@
-package game.action.spell.healing;
+package game.action.spell.attack;
 
 import java.util.List;
 
 import engine.entity.LivingEntity;
 import game.FlotibGame;
 import game.action.Action;
-import game.action.spell.HealingSpell;
-import game.effect.buff.RenewRegenBuffEffect;
+import game.action.spell.AttackSpell;
+import game.effect.debuff.CorruptionDebuffEffect;
 import game.tooltip.TooltipBuilder;
 import game.tooltip.TooltipData;
 import javafx.scene.paint.Color;
 
-public class RenewHealingSpell extends HealingSpell {
+public class CorruptionSpell extends AttackSpell {
 	
 	/* Variables */
-	private int amount;
-	private int buffMaxHealing;
+	private int amount, debuffMaxDamage;
 	
 	/* Constructor */
-	public RenewHealingSpell() {
-		super(FlotibGame.TEXTURE_TEST, 20, Action.CostType.MANA);
+	public CorruptionSpell() {
+		super(FlotibGame.TEXTURE_TEST, 35, Action.CostType.MANA);
 		
-		this.amount = 20;
-		this.buffMaxHealing = amount * 15;
+		this.amount = 10;
+		this.debuffMaxDamage = amount * 4;
 	}
 	
 	@Override
 	public int use(LivingEntity source, LivingEntity target) {
-		source.offsetMana(-cost);
+		source.offsetMana(cost);
 		
-		source.giveEffect(new RenewRegenBuffEffect(this));
+		target.giveEffect(new CorruptionDebuffEffect(this));
 		
 		return ACTION_SUCCESS;
 	}
@@ -37,9 +36,9 @@ public class RenewHealingSpell extends HealingSpell {
 	@Override
 	public List<TooltipData> createTooltip() {
 		return new TooltipBuilder() //
-				.title("Renew") //
+				.title("Corruption") //
 				.description("Mana : " + cost) //
-				.description("Heals you of " + buffMaxHealing + " damage over 15 rounds.").color(Color.YELLOW) //
+				.description("Corrupts the target, causing " + debuffMaxDamage + " Shadow damage over 12 rounds.").color(Color.YELLOW) //
 				.build();
 	}
 	

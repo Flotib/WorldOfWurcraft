@@ -7,6 +7,7 @@ import engine.texture.Texture;
 import engine.tick.Tickable;
 import game.tooltip.TooltipBuilder;
 import game.tooltip.TooltipData;
+import javafx.scene.paint.Color;
 
 public class Action implements Tickable {
 	
@@ -130,7 +131,10 @@ public class Action implements Tickable {
 	 * @return A {@link List} containing all {@link TooltipData} to describe this {@link Action}.
 	 */
 	public List<TooltipData> createTooltip() {
-		return TooltipBuilder.DEFAULT.build();
+		return new TooltipBuilder() //
+				.title(getClass().getSimpleName()) //
+				.description("This action don't have any custom tooltip.").color(Color.RED) //
+				.build();
 	}
 	
 	/**
