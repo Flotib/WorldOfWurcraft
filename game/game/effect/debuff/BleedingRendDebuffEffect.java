@@ -5,14 +5,14 @@ import game.FlotibGame;
 import game.action.attack.attack.RendAttack;
 import game.effect.TimedDebuffEffect;
 
-public class BleedingRendEffect extends TimedDebuffEffect {
+public class BleedingRendDebuffEffect extends TimedDebuffEffect {
 	
 	/* Variables */
 	private int damage;
 	
 	/* Constructor */
-	public BleedingRendEffect(RendAttack rendAttack) {
-		super(FlotibGame.TEXTURE_TEST, 9);
+	public BleedingRendDebuffEffect(RendAttack rendAttack) {
+		super(FlotibGame.TEXTURE_ICON_EFFECT_DEBUFF_REND, 9);
 		
 		this.damage = rendAttack.getAmount();
 	}

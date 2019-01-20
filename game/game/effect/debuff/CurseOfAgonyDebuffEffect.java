@@ -14,7 +14,7 @@ public class CurseOfAgonyDebuffEffect extends TimedDebuffEffect {
 	
 	/* Constructor */
 	public CurseOfAgonyDebuffEffect(CurseOfAgonySpell curseOfAgonySpell) {
-		super(FlotibGame.TEXTURE_TEST, 24);
+		super(FlotibGame.TEXTURE_ICON_EFFECT_DEBUFF_CURSEOFAGONY, 24);
 		
 		this.curseStackDamage = curseOfAgonySpell.getDebuffMinDamage();
 		this.curseStackMinDamage = curseStackDamage - 4;

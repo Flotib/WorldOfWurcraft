@@ -14,7 +14,7 @@ public class TwilightImmolationDebuffEffect extends TimedDebuffEffect {
 	
 	/* Constructor */
 	public TwilightImmolationDebuffEffect(TwilightImmolationSpell twilightImmolationSpell, LivingEntity sender) {
-		super(FlotibGame.TEXTURE_TEST, 15);
+		super(FlotibGame.TEXTURE_ICON_SPELL_TWILIGHTIMMOLATION, 15);
 		
 		this.amount = twilightImmolationSpell.getAmount();
 		this.sender = sender;

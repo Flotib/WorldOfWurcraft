@@ -102,7 +102,7 @@ public class DifferedTextureLoader {
 				
 				callback.onSuccess(textureIndex, texturePath);
 			} catch (Exception exception) {
-				callback.onError(index, texturePath, exception);
+				callback.onError(textureIndex, texturePath, exception);
 			}
 		}
 	}

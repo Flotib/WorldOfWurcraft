@@ -12,7 +12,7 @@ public class BurningDebuffEffect extends TimedDebuffEffect {
 	
 	/* Constructor */
 	public BurningDebuffEffect(FireballSpell fireballSpell) {
-		super(FlotibGame.TEXTURE_TEST, 4);
+		super(FlotibGame.TEXTURE_ICON_EFFECT_DEBUFF_BURNING, 4);
 		
 		this.damage = fireballSpell.getDebuffDamage() / 2;
 	}

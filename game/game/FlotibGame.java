@@ -44,16 +44,19 @@ public class FlotibGame extends GameEngine {
 	
 	// public static final Texture TEXTURE_ICON_SPELL_ITEM_MASK = TEXTURE_LOADER.queue("assets/inventory/spellbar/disabled_mask.png");
 	
-	// public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_BURNING = TEXTURE_LOADER.queue("assets/icons/effects/Debuff_Burning.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_CORRUPTION = TEXTURE_LOADER.queue("assets/icons/effects/Debuff_Corruption.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_BLEEDING = TEXTURE_LOADER.queue("assets/icons/effects/Debuff_Bleeding.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_IMMOLATION = TEXTURE_LOADER.queue("assets/icons/effects/Debuff_Immolation.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_CURSEOFAGONY = TEXTURE_LOADER.queue("assets/icons/effects/Debuff_CurseOfAgony.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_TWILIGHTIMMOLATION = TEXTURE_LOADER.queue("assets/icons/effects/Debuff_twilightImmolation.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_BUFF_RENEW = TEXTURE_LOADER.queue("assets/icons/effects/Buff_Renew.png");
-	// public static final Texture TEXTURE_ICON_EFFECT_BUFF_BLOODRAGE = TEXTURE_LOADER.queue("assets/icons/effects/Buff_BloodRage.png");
+	public static final Texture TEXTURE_ICON_EFFECT_BUFF_RENEW = TEXTURE_LOADER.queue("assets/icons/effects/effect-buff-renew.png");
+	public static final Texture TEXTURE_ICON_EFFECT_BUFF_BLOODRAGE = TEXTURE_LOADER.queue("assets/icons/effects/effect-buff-blood-rage.png");
+
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_BURNING = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-burning.png");
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_REND = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-rend.png");
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_CORRUPTION = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-corruption.png");
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_BLEEDING = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-bleeding.png");
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_IMMOLATION = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-immolation.png");
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_CURSEOFAGONY = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-curse-of-agony.png");
+	public static final Texture TEXTURE_ICON_EFFECT_DEBUFF_TWILIGHTIMMOLATION = TEXTURE_LOADER.queue("assets/icons/effects/effect-debuff-twilight-immolation.png");
 	
 	private TextComponent mouseTextComponent;
+	private Point2D savedPosition;
 	
 	@Override
 	protected void initialize() {
@@ -74,13 +77,9 @@ public class FlotibGame extends GameEngine {
 		mainLayer.add(inventoryComponent);
 	}
 	
-	private boolean dragging;
-	private Point2D savedPosition;
-	
 	@Override
 	public void onMouseMovedEvent(MouseEvent mouseEvent) {
 		super.onMouseMovedEvent(mouseEvent);
-		dragging = false;
 		
 		mouseTextComponent.setColor(Color.BLACK);
 		mouseTextComponent.setText(String.format("x:%s,y:%s", mouseEvent.getX(), mouseEvent.getY()));
@@ -91,7 +90,6 @@ public class FlotibGame extends GameEngine {
 	@Override
 	public void onMouseDraggedEvent(MouseEvent mouseEvent) {
 		super.onMouseDraggedEvent(mouseEvent);
-		dragging = true;
 		
 		mouseTextComponent.setColor(Color.RED);
 		mouseTextComponent.setText(String.format("-> x:%s,y:%s", mouseEvent.getX() - savedPosition.getX(), mouseEvent.getY() - -savedPosition.getY()));

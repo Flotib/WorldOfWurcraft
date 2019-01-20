@@ -6,7 +6,7 @@ import engine.entity.LivingEntity;
 import game.FlotibGame;
 import game.action.Action;
 import game.action.attack.Attack;
-import game.effect.debuff.BleedingRendEffect;
+import game.effect.debuff.BleedingRendDebuffEffect;
 import game.tooltip.TooltipBuilder;
 import game.tooltip.TooltipData;
 import javafx.scene.paint.Color;
@@ -29,7 +29,7 @@ public class RendAttack extends Attack {
 		source.offsetRage(-cost);
 		source.offsetMana(7);
 		
-		target.giveEffect(new BleedingRendEffect(this));
+		target.giveEffect(new BleedingRendDebuffEffect(this));
 		
 		return ACTION_REPLAY;
 	}

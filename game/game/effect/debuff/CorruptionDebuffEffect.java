@@ -12,7 +12,7 @@ public class CorruptionDebuffEffect extends TimedDebuffEffect {
 	
 	/* Constructor */
 	public CorruptionDebuffEffect(CorruptionSpell corruptionSpell) {
-		super(FlotibGame.TEXTURE_TEST, 12);
+		super(FlotibGame.TEXTURE_ICON_EFFECT_DEBUFF_CORRUPTION, 12);
 		
 		this.damage = corruptionSpell.getAmount();
 	}

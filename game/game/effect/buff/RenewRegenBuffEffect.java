@@ -12,7 +12,7 @@ public class RenewRegenBuffEffect extends TimedBuffEffect {
 	
 	/* Constructor */
 	public RenewRegenBuffEffect(RenewHealingSpell renewHealingSpell) {
-		super(FlotibGame.TEXTURE_TEST, 15);
+		super(FlotibGame.TEXTURE_ICON_EFFECT_BUFF_RENEW, 15);
 		
 		this.amount = renewHealingSpell.getAmount();
 	}

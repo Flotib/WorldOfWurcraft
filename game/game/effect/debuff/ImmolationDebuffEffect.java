@@ -12,7 +12,7 @@ public class ImmolationDebuffEffect extends TimedDebuffEffect {
 	
 	/* Constructor */
 	public ImmolationDebuffEffect(ImmolationSpell immolationSpell) {
-		super(FlotibGame.TEXTURE_TEST, 15);
+		super(FlotibGame.TEXTURE_ICON_EFFECT_DEBUFF_IMMOLATION, 15);
 		
 		this.amount = immolationSpell.getAmount();
 	}

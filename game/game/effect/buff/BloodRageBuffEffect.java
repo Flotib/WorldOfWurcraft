@@ -7,7 +7,7 @@ import game.effect.TimedBuffEffect;
 public class BloodRageBuffEffect extends TimedBuffEffect {
 	
 	public BloodRageBuffEffect() {
-		super(FlotibGame.TEXTURE_TEST, 10);
+		super(FlotibGame.TEXTURE_ICON_EFFECT_BUFF_BLOODRAGE, 10);
 	}
 	
 	@Override
