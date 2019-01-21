@@ -177,6 +177,9 @@ public class GameEngine extends Application {
 		uiManager.render(canvas);
 		graphics.restore();
 		
+		graphics.setStroke(Color.RED);
+		graphics.strokeRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
 		graphics.restore();
 	}
 	
@@ -202,26 +205,26 @@ public class GameEngine extends Application {
 	}
 	
 	public void onMouseDraggedEvent(MouseEvent mouseEvent) {
-		mousePosition = computeSceneCursorPosition(mouseEvent.getX(), mouseEvent.getY());
+		mousePosition = computeScreenCursorPosition(mouseEvent.getX(), mouseEvent.getY());
 		
-		uiManager.dispatchMouseMoved(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+		uiManager.dispatchMouseMoved(mousePosition);
 		
 		if (debugging) {
 			debuggingMousePositionTextComponent.setColor(Color.PURPLE);
-			debuggingMousePositionTextComponent.setText(String.format("-> x:%s,y:%s", mouseEvent.getX() - debuggingMouseSavedPosition.getX(), mouseEvent.getY() - debuggingMouseSavedPosition.getY()));
-			debuggingMousePositionTextComponent.setPosition(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+			debuggingMousePositionTextComponent.setText(String.format("-> x:%s,y:%s", mousePosition.getX() - debuggingMouseSavedPosition.getX(), mousePosition.getY() - debuggingMouseSavedPosition.getY()));
+			debuggingMousePositionTextComponent.setPosition(new Point2D(mousePosition.getX(), mousePosition.getY()));
 		}
 	}
 	
 	public void onMouseMovedEvent(MouseEvent mouseEvent) {
-		mousePosition = computeSceneCursorPosition(mouseEvent.getX(), mouseEvent.getY());
+		mousePosition = computeScreenCursorPosition(mouseEvent.getX(), mouseEvent.getY());
 		
-		uiManager.dispatchMouseMoved(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+		uiManager.dispatchMouseMoved(mousePosition);
 		
 		if (debugging) {
 			debuggingMousePositionTextComponent.setColor(Color.BLACK);
 			debuggingMousePositionTextComponent.setText(String.format("x:%s,y:%s", mouseEvent.getX(), mouseEvent.getY()));
-			debuggingMousePositionTextComponent.setPosition(debuggingMouseSavedPosition = new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+			debuggingMousePositionTextComponent.setPosition(debuggingMouseSavedPosition = mousePosition);
 		}
 	}
 	
@@ -236,6 +239,13 @@ public class GameEngine extends Application {
 	public Point2D computeSceneCursorPosition(double x, double y) {
 		double sceneCX = x - canvas.getWidth() / 2;
 		double sceneCY = -y + canvas.getHeight() / 2;
+		
+		return new Point2D(sceneCX, sceneCY);
+	}
+	
+	public Point2D computeScreenCursorPosition(double x, double y) {
+		double sceneCX = x;
+		double sceneCY = y;
 		
 		return new Point2D(sceneCX, sceneCY);
 	}
@@ -328,6 +338,9 @@ public class GameEngine extends Application {
 		
 		canvas.widthProperty().bind(scene.widthProperty());
 		canvas.heightProperty().bind(scene.heightProperty());
+		
+		// canvas.scaleXProperty().bind(scene.widthProperty().divide(1920));
+		// canvas.scaleYProperty().bind(scene.heightProperty().divide(1080));
 		
 		return scene;
 	}

@@ -4,6 +4,7 @@ import engine.GameEngine;
 import engine.texture.DifferedTextureLoader;
 import engine.texture.Texture;
 import engine.ui.UILayer;
+import engine.ui.components.UIComponent;
 import engine.ui.components.implementations.TextComponent;
 import game.entity.Player;
 import game.inventory.Inventory;
@@ -85,7 +86,7 @@ public class FlotibGame extends GameEngine {
 		
 		Inventory inventory = new SpellInventory();
 		InventoryComponent inventoryComponent = new InventoryComponent(inventory, 500, 500);
-		// inventoryComponent.setRenderMode(UIComponent.RENDER_DEBUG);
+		inventoryComponent.setRenderMode(UIComponent.RENDER_DEBUG);
 		
 		mainLayer.add(playerStatisticsTextComponent = new TextComponent(null, 50, 50));
 		mainLayer.add(inventoryComponent);
