@@ -36,8 +36,8 @@ public class RitualOfSacrificeAttack extends Attack {
 	
 	@Override
 	public int use(LivingEntity source, LivingEntity target) {
-		source.offsetMana(cost);
-		source.offsetRage(cost2);
+		source.offsetMana(-cost);
+		source.offsetRage(-cost2);
 		
 		target.offsetHealth(-(Randomizer.randomInt(3, 5) + damage));
 		

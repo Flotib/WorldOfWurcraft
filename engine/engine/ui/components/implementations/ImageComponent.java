@@ -1,5 +1,6 @@
 package engine.ui.components.implementations;
 
+import caceresenzo.libs.logger.Logger;
 import engine.ui.components.UIComponent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -40,14 +41,15 @@ public class ImageComponent extends UIComponent {
 		}
 		
 		graphics.save();
-		graphics.scale(1 / scale, -1 / scale);
 		
 		double imageX = x * scale;
 		double imageY = y * scale;
 		double imageWidth = width * scale;
 		double imageHeight = height * scale;
 		
-		graphics.drawImage(image, imageX, -imageY - imageHeight, imageWidth, imageHeight);
+		Logger.info(getAbsoluteY());
+		
+		graphics.drawImage(image, imageX, imageY, imageWidth, imageHeight);
 		graphics.restore();
 	}
 	

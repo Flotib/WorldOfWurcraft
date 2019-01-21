@@ -2,6 +2,7 @@ package engine.ui.components.implementations;
 
 import com.sun.javafx.tk.Toolkit;
 
+import caceresenzo.libs.logger.Logger;
 import engine.ui.components.UIComponent;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -93,7 +94,7 @@ public class ButtonComponent extends TextComponent {
 		double buttonWidth = width * scale;
 		double buttonHeight = height * scale;
 		
-		graphics.fillRoundRect(buttonX, -buttonY, buttonWidth, buttonHeight, 1, 4);
+		graphics.fillRoundRect(buttonX, buttonY, buttonWidth, buttonHeight, 1, 4);
 		
 		graphics.restore();
 		
@@ -102,21 +103,24 @@ public class ButtonComponent extends TextComponent {
 			graphics.setFill(getColor());
 			graphics.setFont(getFont());
 			
-			graphics.scale(1 / scale, -1 / scale);
+			// graphics.scale(1 / scale, -1 / scale);
 			
 			double textX = (x + BUTTON_MARGIN) * scale;
-			double textY = (y + BUTTON_MARGIN) * scale;
+			double textY = (y - BUTTON_MARGIN) * scale;
+			double textHeight = height * scale;
+			
+			graphics.translate(0, textHeight);
 			
 			if (selected) {
 				textX -= 1;
 				textY += 1;
 			}
 			
-			graphics.fillText(String.valueOf(getText()), textX, -textY);
+			graphics.fillText(String.valueOf(getText()), textX, textY);
 			graphics.restore();
 		} else {
 			graphics.save();
-			graphics.scale(1 / scale, -1 / scale);
+			// graphics.scale(1 / scale, -1 / scale);
 			
 			double imageX = x * scale;
 			double imageY = y * scale;
@@ -124,36 +128,13 @@ public class ButtonComponent extends TextComponent {
 			double imageHeight = height * scale;
 			
 			if (selected) {
-				imageX -= 1;
-				imageY += 1;
+				imageX += 1;
+				imageY -= 1;
 			}
 			
-			graphics.drawImage(image, imageX, -imageY - imageHeight, imageWidth, imageHeight);
+			graphics.drawImage(image, imageX, imageY, imageWidth, imageHeight);
 			graphics.restore();
 		}
-	}
-	
-	@Override
-	public void dispatchMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
-		super.dispatchMouseClick(button, mouseScreenPosition, pressed);
-		
-		if (isClickable()) {
-			internalOnMouseClick(button, mouseScreenPosition, pressed);
-		}
-	}
-	
-	/**
-	 * Internaly do the same thing as {@link UIComponent#dispatchMouseClick(MouseButton, Point2D, boolean)}.
-	 * 
-	 * @param button
-	 *            Target mouse button.
-	 * @param mouseScreenPosition
-	 *            Mouse position when event was fired.
-	 * @param pressed
-	 *            If the mouse click is pressed or released.
-	 */
-	protected void internalOnMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
-		;
 	}
 	
 	@Override

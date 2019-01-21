@@ -22,6 +22,10 @@ public class SpellItem extends GameItem {
 	
 	@Override
 	public void use(LivingEntity livingEntity) {
+		if (!spell.canLivingEntityUseIt(livingEntity)) {
+			return;
+		}
+		
 		if (livingEntity instanceof Player) {
 			Player player = (Player) livingEntity;
 			
@@ -55,6 +59,10 @@ public class SpellItem extends GameItem {
 				}
 			}
 		}
+	}
+	
+	public Spell getSpell() {
+		return spell;
 	}
 	
 }

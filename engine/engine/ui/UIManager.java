@@ -35,6 +35,8 @@ public class UIManager {
 		UILayer layer = new UILayer(index);
 		layers.add(layer);
 		
+		resortLayers();
+		
 		return layer;
 	}
 	

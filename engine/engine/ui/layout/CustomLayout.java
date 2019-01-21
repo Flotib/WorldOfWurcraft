@@ -17,18 +17,18 @@ public abstract class CustomLayout extends UILayout {
 	
 	@Override
 	public double getAbsoluteXOf(UIComponent targetComponent) {
-		return getAbsoluteX();
+		return getAbsoluteX() + targetComponent.getX();
 	}
 	
 	@Override
 	public double getAbsoluteYOf(UIComponent targetComponent) {
-		return getAbsoluteY();
+		return getAbsoluteY() + targetComponent.getY();
 	}
 	
 	@Override
 	public void render(GraphicsContext graphics) {
 		graphics.save();
-		graphics.translate(x, -y - height);
+		graphics.translate(x, y);
 
 		for (UIComponent component : getChildren()) {
 			component.render(graphics);

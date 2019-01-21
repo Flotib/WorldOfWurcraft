@@ -18,7 +18,7 @@ public class HandAttack extends Attack {
 	public int use(LivingEntity source, LivingEntity target) {
 		target.offsetHealth(-Randomizer.randomInt(3, 5));
 		
-		source.offsetHealth(7);
+		source.offsetMana(7);
 		source.offsetRage(Randomizer.randomInt(2, 4));
 		
 		return ACTION_SUCCESS;

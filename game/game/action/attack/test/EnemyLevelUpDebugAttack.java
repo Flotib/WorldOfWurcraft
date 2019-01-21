@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public class EnemyLevelUpDebugAttack extends Attack {
 	
 	public EnemyLevelUpDebugAttack() {
-		super(FlotibGame.TEXTURE_TEST, 0, CostType.NOTHING);
+		super(FlotibGame.TEXTURE_ICON_TEST, 0, CostType.NOTHING);
 	}
 	
 	@Override

@@ -22,12 +22,16 @@ import javafx.scene.text.Font;
 
 public class BasicDrawingTest extends GameEngine {
 	private double lastX = -1, lastY = -1;
+
+	
+	public static final Texture testImage = TextureManager.load("test/test-image.jpg");
 	
 	private LinearLayout mainLinearLayout;
 	
 	@Override
 	protected void initialize() {
-		Texture testImage = TextureManager.load("test/test-image.jpg");
+		super.initialize();
+		debugging(true);
 		
 		UILayer mainLayer = uiManager.createLayer(0);
 		

@@ -28,8 +28,8 @@ public class FireballSpell extends AttackSpell {
 	
 	@Override
 	public int use(LivingEntity source, LivingEntity target) {
-		source.offsetMana(cost);
-		target.offsetHealth(Randomizer.randomInt(minDamage, maxDamage));
+		source.offsetMana(-cost);
+		target.offsetHealth(-Randomizer.randomInt(minDamage, maxDamage));
 		
 		target.giveEffect(new BurningDebuffEffect(this));
 		

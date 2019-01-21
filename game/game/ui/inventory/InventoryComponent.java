@@ -1,16 +1,14 @@
 package game.ui.inventory;
 
-import engine.game.content.item.Item;
 import engine.ui.components.implementations.ButtonComponent;
-import engine.ui.components.implementations.ImageComponent;
 import engine.ui.layout.CustomLayout;
 import game.FlotibGame;
 import game.inventory.Inventory;
-import javafx.scene.canvas.GraphicsContext;
 
 public class InventoryComponent extends CustomLayout {
-	
-	public static final int HOLDER_SIZE = 64;
+
+	public static final int HOLDER_SIZE = ItemHolderComponent.HOLDER_SIZE;
+	public static final double SPACE_MOUVEMENT = 1.0;
 	
 	/* Variables */
 	protected final Inventory inventory;
@@ -28,20 +26,11 @@ public class InventoryComponent extends CustomLayout {
 		
 		for (int i = 0; i < inventory.getColumn(); i++) {
 			for (int j = 0; j < inventory.getRow(); j++) {
-				final int itemIndex = i + (j * inventory.getColumn());
-				addComponent(new ImageComponent(FlotibGame.TEXTURE_TEST.getImage(), i * HOLDER_SIZE * 1.2, j * HOLDER_SIZE * 1.2, HOLDER_SIZE, HOLDER_SIZE) {
-					@Override
-					public void render(GraphicsContext graphics) {
-						Item item = inventory.getItemAt(itemIndex);
-						if (item != null) {
-							image = inventory.getItemAt(itemIndex).getTexture().getImage();
-						} else {
-							image = null;
-						}
-						super.render(graphics);
-					}
-				});
-				// addComponent(new TextComponent(String.valueOf(i + (j * inventory.getColumn())), i * 32 * 1.2, j * 32 * 1.2, 32, 32));
+				int itemIndex = i + (j * inventory.getColumn());
+//				if (itemIndex % 3 == 0) {
+//					continue;
+//				}
+				addComponent(new ItemHolderComponent(i * HOLDER_SIZE * SPACE_MOUVEMENT, j * HOLDER_SIZE * SPACE_MOUVEMENT, inventory, itemIndex));
 			}
 		}
 	}

@@ -26,7 +26,7 @@ public class CorruptionSpell extends AttackSpell {
 	
 	@Override
 	public int use(LivingEntity source, LivingEntity target) {
-		source.offsetMana(cost);
+		source.offsetMana(-cost);
 		
 		target.giveEffect(new CorruptionDebuffEffect(this));
 		

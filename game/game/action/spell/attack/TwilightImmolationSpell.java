@@ -27,7 +27,7 @@ public class TwilightImmolationSpell extends AttackSpell {
 	
 	@Override
 	public int use(LivingEntity source, LivingEntity target) {
-		source.offsetMana(cost);
+		source.offsetMana(-cost);
 		
 		source.offsetHealth(damage);
 		target.offsetHealth(-damage);

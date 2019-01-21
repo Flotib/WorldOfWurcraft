@@ -1,7 +1,9 @@
 package engine;
 
+import engine.ui.UILayer;
 import engine.ui.UIManager;
 import engine.ui.components.UIComponent;
+import engine.ui.components.implementations.TextComponent;
 import engine.world.World;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -19,6 +21,9 @@ import javafx.stage.Stage;
 
 public class GameEngine extends Application {
 	
+	/* Constants */
+	public static final int DEBUG_LAYER_INDEX = 1000;
+	
 	/* Instance */
 	private static GameEngine ENGINE;
 	
@@ -33,9 +38,15 @@ public class GameEngine extends Application {
 	
 	/* Managers */
 	protected UIManager uiManager;
+	protected UILayer debugLayer;
 	
 	/* Mouse */
-	protected Point2D mousePosition = new Point2D(0, 0);
+	protected Point2D mousePosition;
+	
+	/* Debug */
+	private boolean debugging;
+	private TextComponent debuggingMousePositionTextComponent;
+	private Point2D debuggingMouseSavedPosition;
 	
 	/* Variables */
 	protected World world;
@@ -47,15 +58,25 @@ public class GameEngine extends Application {
 		ENGINE = this;
 		
 		this.uiManager = UIManager.getManager();
+		
+		this.debugLayer = uiManager.createLayer(DEBUG_LAYER_INDEX);
+		
+		this.mousePosition = new Point2D(0, 0);
+		
 		this.world = createWorld();
 		
 		initialize();
 	}
 	
+	/**
+	 * Do code when your game initialize.
+	 */
 	protected void initialize() {
-		;
+		debugLayer.add(debuggingMousePositionTextComponent = new TextComponent());
+		debuggingMouseSavedPosition = new Point2D(0, 0);
 	}
 	
+	@Override
 	public void start(Stage stage) throws Exception {
 		this.stage = stage;
 		
@@ -85,10 +106,21 @@ public class GameEngine extends Application {
 		timer.start();
 	}
 	
-	private void updateStageTitle() {
+	/**
+	 * Called when the window's title need to be updated.
+	 */
+	protected void updateStageTitle() {
 		stage.setTitle(String.valueOf(fps));
 	}
 	
+	/**
+	 * Main loop function.
+	 * 
+	 * @param delta
+	 *            Delta time.
+	 * @param now
+	 *            Time now.
+	 */
 	public void loop(double delta, long now) {
 		frameNumber++;
 		
@@ -105,27 +137,54 @@ public class GameEngine extends Application {
 		renderComponents();
 	}
 	
+	/**
+	 * Called when the game has ticked.
+	 * 
+	 * @param delta
+	 *            Delta time.
+	 */
 	public void tick(double delta) {
 		;
 	}
 	
+	/**
+	 * Called when the game need to render.
+	 * 
+	 * @param delta
+	 *            Delta time.
+	 */
 	public void render(double delta) {
 		;
 	}
 	
+	/**
+	 * {@link UIComponent} rendering pipeline.
+	 */
 	public void renderComponents() {
 		GraphicsContext graphics = canvas.getGraphicsContext2D();
 		
 		graphics.save();
-		graphics.scale(UIComponent.DEFAULT_CANVAS_RESCALE, -UIComponent.DEFAULT_CANVAS_RESCALE);
-
+		graphics.scale(UIComponent.DEFAULT_CANVAS_RESCALE, UIComponent.DEFAULT_CANVAS_RESCALE);
+		
+		if (debugging) {
+			graphics.setFill(Color.RED);
+			graphics.fillRect(debuggingMouseSavedPosition.getX() - 2, debuggingMouseSavedPosition.getY() - 2, 4, 4);
+		}
+		
+		graphics.setFill(Color.BLACK);
+		
 		graphics.save();
 		uiManager.render(canvas);
 		graphics.restore();
-			
+		
 		graphics.restore();
 	}
 	
+	/**
+	 * Create the actual world.
+	 * 
+	 * @return World instance.
+	 */
 	public World createWorld() {
 		return new World();
 	}
@@ -146,18 +205,30 @@ public class GameEngine extends Application {
 		mousePosition = computeSceneCursorPosition(mouseEvent.getX(), mouseEvent.getY());
 		
 		uiManager.dispatchMouseMoved(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+		
+		if (debugging) {
+			debuggingMousePositionTextComponent.setColor(Color.PURPLE);
+			debuggingMousePositionTextComponent.setText(String.format("-> x:%s,y:%s", mouseEvent.getX() - debuggingMouseSavedPosition.getX(), mouseEvent.getY() - debuggingMouseSavedPosition.getY()));
+			debuggingMousePositionTextComponent.setPosition(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+		}
 	}
 	
 	public void onMouseMovedEvent(MouseEvent mouseEvent) {
 		mousePosition = computeSceneCursorPosition(mouseEvent.getX(), mouseEvent.getY());
-
+		
 		uiManager.dispatchMouseMoved(new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+		
+		if (debugging) {
+			debuggingMousePositionTextComponent.setColor(Color.BLACK);
+			debuggingMousePositionTextComponent.setText(String.format("x:%s,y:%s", mouseEvent.getX(), mouseEvent.getY()));
+			debuggingMousePositionTextComponent.setPosition(debuggingMouseSavedPosition = new Point2D(mouseEvent.getX(), mouseEvent.getY()));
+		}
 	}
 	
 	public void onKeyPressedEvent(KeyEvent keyEvent) {
 		;
 	}
-
+	
 	private void onKeyReleasedEvent(KeyEvent keyEvent) {
 		;
 	}
@@ -259,6 +330,20 @@ public class GameEngine extends Application {
 		canvas.heightProperty().bind(scene.heightProperty());
 		
 		return scene;
+	}
+	
+	/**
+	 * Enable or disable debugging of the {@link GameEngine}.
+	 * 
+	 * @param enable
+	 *            New enabled state, <code>false</code> by default.
+	 */
+	public void debugging(boolean enable) {
+		this.debugging = enable;
+	}
+	
+	public boolean isDebugging() {
+		return debugging;
 	}
 	
 	public static GameEngine getGameEngine() {

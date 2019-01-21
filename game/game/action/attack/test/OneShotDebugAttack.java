@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public class OneShotDebugAttack extends Attack {
 	
 	public OneShotDebugAttack() {
-		super(FlotibGame.TEXTURE_TEST, 0, CostType.NOTHING);
+		super(FlotibGame.TEXTURE_ICON_TEST, 0, CostType.NOTHING);
 	}
 	
 	@Override

@@ -124,13 +124,13 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 			paint = Color.GREEN;
 		}
 		graphics.setStroke(paint);
-		graphics.strokeRect(componentX, -componentY - componentHeight, componentWidth, componentHeight);
+		graphics.strokeRect(componentX, componentY, componentWidth, componentHeight);
 		
 		double cornerLength = 2 * scale;
 		
 		graphics.setStroke(Color.RED);
-		graphics.strokeLine(componentX - 1, -componentY, componentX + cornerLength, -componentY);
-		graphics.strokeLine(componentX, -componentY + 1, componentX, -componentY - cornerLength);
+		graphics.strokeLine(componentX + 1, componentY, componentX - cornerLength, componentY);
+		graphics.strokeLine(componentX, componentY + 1, componentX, componentY - cornerLength);
 		
 		graphics.restore();
 	}
@@ -195,9 +195,27 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 	 *            If the mouse click is pressed or released.
 	 */
 	public void dispatchMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
-		if (onClickListener != null && isClickable()) {
-			onClickListener.onClick(this, button, mouseScreenPosition, pressed);
+		if (isClickable()) {
+			internalOnMouseClick(button, mouseScreenPosition, pressed);
+			
+			if (onClickListener != null) {
+				onClickListener.onClick(this, button, mouseScreenPosition, pressed);
+			}
 		}
+	}
+	
+	/**
+	 * Internaly do the same thing as {@link UIComponent#dispatchMouseClick(MouseButton, Point2D, boolean)}.
+	 * 
+	 * @param button
+	 *            Target mouse button.
+	 * @param mouseScreenPosition
+	 *            Mouse position when event was fired.
+	 * @param pressed
+	 *            If the mouse click is pressed or released.
+	 */
+	protected void internalOnMouseClick(MouseButton button, Point2D mouseScreenPosition, boolean pressed) {
+		;
 	}
 	
 	/**
@@ -212,7 +230,7 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		
 		if (getParent() != null) {
 			if (getParent() instanceof UILayout) {
-				absolute += ((UILayout) getParent()).getAbsoluteXOf(this);
+				absolute = ((UILayout) getParent()).getAbsoluteXOf(this);
 			} else {
 				absolute += getParent().getAbsoluteX();
 			}
@@ -253,7 +271,7 @@ public abstract class UIComponent implements Renderable, Collidable<Point2D> {
 		
 		if (getParent() != null) {
 			if (getParent() instanceof UILayout) {
-				absolute += ((UILayout) getParent()).getAbsoluteYOf(this);
+				absolute = ((UILayout) getParent()).getAbsoluteYOf(this);
 			} else {
 				absolute += getParent().getAbsoluteY();
 			}

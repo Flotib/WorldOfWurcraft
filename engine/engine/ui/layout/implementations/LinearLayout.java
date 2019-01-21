@@ -120,13 +120,13 @@ public class LinearLayout extends UILayout {
 	@Override
 	public void render(GraphicsContext graphics) {
 		graphics.save();
-		graphics.translate(x, -y);
+		graphics.translate(x, y);
 		
 		switch (orientation) {
 			case VERTICAL: {
 				for (UIComponent component : getChildren()) {
-					graphics.translate(0, -component.getHeight() * scale);
 					component.render(graphics);
+					graphics.translate(0, component.getHeight() * scale);
 				}
 				
 				break;

@@ -95,12 +95,13 @@ public class TextComponent extends UIComponent {
 		graphics.setFill(getColor());
 		graphics.setFont(getFont());
 		
-		graphics.scale(1 / scale, -1 / scale);
-		
 		double textX = x * scale;
 		double textY = y * scale;
+		double textHeight = height * scale;
 		
-		graphics.fillText(String.valueOf(text), textX, -textY);
+		graphics.translate(0, textHeight);
+		
+		graphics.fillText(String.valueOf(text), textX, textY);
 		graphics.restore();
 	}
 	
