@@ -18,7 +18,7 @@ public abstract class UILayout extends UIComponent {
 	}
 	
 	/* Constructor */
-	public UILayout(int x, int y) {
+	public UILayout(double x, double y) {
 		super(x, y);
 	}
 	

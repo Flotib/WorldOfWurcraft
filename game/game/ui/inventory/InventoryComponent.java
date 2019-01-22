@@ -18,7 +18,7 @@ public class InventoryComponent extends CustomLayout {
 	}
 	
 	/* Constructor */
-	public InventoryComponent(Inventory inventory, int x, int y) {
+	public InventoryComponent(Inventory inventory, double x, double y) {
 		super(x, y);
 		
 		this.inventory = inventory;

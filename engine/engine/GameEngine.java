@@ -24,8 +24,8 @@ public class GameEngine extends Application {
 	/* Constants */
 	public static final int DEBUG_LAYER_INDEX = 1000;
 	
-	public static final int BASE_SCREEN_WIDTH = 1936;
-	public static final int BASE_SCREEN_HEIGHT = 1066;
+	public static final double BASE_SCREEN_WIDTH = 1920.0D;
+	public static final double BASE_SCREEN_HEIGHT = 1027.0D;
 	
 	/* Instance */
 	private static GameEngine ENGINE;
@@ -68,8 +68,6 @@ public class GameEngine extends Application {
 		this.mousePosition = new Point2D(0, 0);
 		
 		this.world = createWorld();
-		
-		initialize();
 	}
 	
 	/**
@@ -108,6 +106,8 @@ public class GameEngine extends Application {
 		};
 		
 		timer.start();
+		
+		initialize();
 	}
 	
 	/**
@@ -145,8 +145,8 @@ public class GameEngine extends Application {
 		graphics.setFill(Color.WHITE);
 		graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
-		xWindowScale = (stage.getWidth() / BASE_SCREEN_WIDTH);
-		yWindowScale = (stage.getHeight() / BASE_SCREEN_HEIGHT);
+		xWindowScale = (canvas.getWidth() / BASE_SCREEN_WIDTH);
+		yWindowScale = (canvas.getHeight() / BASE_SCREEN_HEIGHT);
 		
 		graphics.scale(xWindowScale, yWindowScale);
 		
@@ -266,8 +266,8 @@ public class GameEngine extends Application {
 	}
 	
 	public Point2D computeScreenCursorPosition(double x, double y) {
-		double screenX = x * (BASE_SCREEN_WIDTH /stage.getWidth() );
-		double screenY = y * (BASE_SCREEN_HEIGHT /stage.getHeight() );
+		double screenX = x * (BASE_SCREEN_WIDTH / canvas.getWidth());
+		double screenY = y * (BASE_SCREEN_HEIGHT / canvas.getHeight());
 		
 		return new Point2D(screenX, screenY);
 	}

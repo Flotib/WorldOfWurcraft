@@ -11,7 +11,7 @@ public abstract class CustomLayout extends UILayout {
 	}
 
 	/* Constructor */
-	public CustomLayout(int x, int y) {
+	public CustomLayout(double x, double y) {
 		super(x, y);
 	}
 	

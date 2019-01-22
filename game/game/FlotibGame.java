@@ -1,9 +1,11 @@
 package game;
 
+import caceresenzo.libs.logger.Logger;
 import engine.GameEngine;
 import engine.texture.DifferedTextureLoader;
 import engine.texture.Texture;
 import engine.ui.UILayer;
+import engine.ui.components.UIComponent;
 import engine.ui.components.implementations.TextComponent;
 import game.entity.Player;
 import game.inventory.Inventory;
@@ -83,8 +85,13 @@ public class FlotibGame extends GameEngine {
 		UILayer mainLayer = uiManager.createLayer(0);
 		
 		Inventory inventory = new SpellInventory();
-		InventoryComponent inventoryComponent = new InventoryComponent(inventory, 500, 500);
-		// inventoryComponent.setRenderMode(UIComponent.RENDER_DEBUG);
+		double inventoryX = canvas.getWidth() / 2;
+		double inventoryY = BASE_SCREEN_HEIGHT - (inventory.getRow() * InventoryComponent.HOLDER_SIZE * InventoryComponent.SPACE_MOUVEMENT);
+		
+		Logger.info("%s, %s", inventory.getRow() * InventoryComponent.HOLDER_SIZE * InventoryComponent.SPACE_MOUVEMENT, BASE_SCREEN_HEIGHT - (inventory.getRow() * InventoryComponent.HOLDER_SIZE * InventoryComponent.SPACE_MOUVEMENT));
+		
+		InventoryComponent inventoryComponent = new InventoryComponent(inventory, inventoryX, inventoryY);
+		inventoryComponent.setRenderMode(UIComponent.RENDER_DEBUG);
 		
 		mainLayer.add(playerStatisticsTextComponent = new TextComponent(null, 50, 50));
 		mainLayer.add(inventoryComponent);
