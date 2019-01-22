@@ -24,6 +24,9 @@ public class GameEngine extends Application {
 	/* Constants */
 	public static final int DEBUG_LAYER_INDEX = 1000;
 	
+	public static final int BASE_SCREEN_WIDTH = 1936;
+	public static final int BASE_SCREEN_HEIGHT = 1066;
+	
 	/* Instance */
 	private static GameEngine ENGINE;
 	
@@ -50,6 +53,7 @@ public class GameEngine extends Application {
 	
 	/* Variables */
 	protected World world;
+	protected double xWindowScale, yWindowScale;
 	
 	/* Constructor */
 	public GameEngine() {
@@ -81,7 +85,7 @@ public class GameEngine extends Application {
 		this.stage = stage;
 		
 		stage.setMaximized(true);
-		stage.setTitle("Elektrode");
+		stage.setTitle(getClass().getSimpleName());
 		stage.setMinWidth(580);
 		stage.setMinHeight(460);
 		stage.setScene(createScene(stage));
@@ -132,9 +136,30 @@ public class GameEngine extends Application {
 			lastFPSUpdate = now;
 		}
 		
+		doRenderingPipeline(canvas.getGraphicsContext2D(), delta);
+	}
+	
+	private void doRenderingPipeline(GraphicsContext graphics, double delta) {
+		graphics.save();
+		
+		graphics.setFill(Color.WHITE);
+		graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		xWindowScale = (stage.getWidth() / BASE_SCREEN_WIDTH);
+		yWindowScale = (stage.getHeight() / BASE_SCREEN_HEIGHT);
+		
+		graphics.scale(xWindowScale, yWindowScale);
+		
 		tick(delta);
 		render(delta);
 		renderComponents();
+		
+		graphics.scale(xWindowScale * 2, yWindowScale * 2);
+		
+		graphics.restore();
+		
+		graphics.setStroke(Color.RED);
+		graphics.strokeRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
 	
 	/**
@@ -176,9 +201,6 @@ public class GameEngine extends Application {
 		graphics.save();
 		uiManager.render(canvas);
 		graphics.restore();
-		
-		graphics.setStroke(Color.RED);
-		graphics.strokeRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
 		graphics.restore();
 	}
@@ -223,7 +245,7 @@ public class GameEngine extends Application {
 		
 		if (debugging) {
 			debuggingMousePositionTextComponent.setColor(Color.BLACK);
-			debuggingMousePositionTextComponent.setText(String.format("x:%s,y:%s", mouseEvent.getX(), mouseEvent.getY()));
+			debuggingMousePositionTextComponent.setText(String.format("x:%s,y:%s", mousePosition.getX(), mousePosition.getY()));
 			debuggingMousePositionTextComponent.setPosition(debuggingMouseSavedPosition = mousePosition);
 		}
 	}
@@ -244,10 +266,10 @@ public class GameEngine extends Application {
 	}
 	
 	public Point2D computeScreenCursorPosition(double x, double y) {
-		double sceneCX = x;
-		double sceneCY = y;
+		double screenX = x * (BASE_SCREEN_WIDTH /stage.getWidth() );
+		double screenY = y * (BASE_SCREEN_HEIGHT /stage.getHeight() );
 		
-		return new Point2D(sceneCX, sceneCY);
+		return new Point2D(screenX, screenY);
 	}
 	
 	protected void renderGrid() {
@@ -338,9 +360,6 @@ public class GameEngine extends Application {
 		
 		canvas.widthProperty().bind(scene.widthProperty());
 		canvas.heightProperty().bind(scene.heightProperty());
-		
-		// canvas.scaleXProperty().bind(scene.widthProperty().divide(1920));
-		// canvas.scaleYProperty().bind(scene.heightProperty().divide(1080));
 		
 		return scene;
 	}

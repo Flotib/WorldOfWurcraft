@@ -31,5 +31,9 @@ public class Inventory {
 		
 		return null;
 	}
+
+	public int getSize() {
+		return column * row;
+	}
 	
 }
